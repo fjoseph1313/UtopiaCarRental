@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>UTOPIA CAR RENTAL</title>
+        <h:outputScript library="js" name="utopia.js" />
+        <script>
+            $(function(){
+                $(".datepicker").datepicker();
+            });
+        </script>
+    </h:head>
+    <h:body>
+        <p><H1>UTOPIA CAR RENTAL</H1></p><br />
+        <p><h:link outcome="index" value="HOME" /></p>
+        <h2> WANT TO GO SOMEWHERE? RENT! </h2>
+        <h:outputLabel value="RENT APPLICATION FORM"/><br /><br />
+        <h:form>
+            <h:panelGrid columns="3" border="0" bgcolor="gray">
+
+                <h:outputLabel value="PickUp Location :"/>
+                <h:inputText value="#{RentalBean.pLocale}" />
+                <h:message class="error" for=""/>
+
+                <h:outputLabel value="PickUp Date :"/>
+                <p:calendar value="#{RentalBean.pDate}" navigator="true" pattern="yyyy-MM-dd" />
+                <h:message class="error" for=""/>
+
+                <h:outputLabel value="DropOff Location :"/>
+                <h:inputText value="#{RentalBean.dLocale}" />
+                <h:message class="error" for=""/>
+
+                <h:outputLabel value="DropOff Date :" class="datepicker"/>
+                <p:calendar value="#{RentalBean.dDate}" navigator="true" pattern="yyyy-MM-dd" />
+                <h:message class="error" for=""/>
+
+                <h:outputLabel value="Car Category :"/>
+                <h:selectOneMenu value="#{RentalBean.catId}">
+                    <f:selectItems value="#{CategoryBean.categories}" 
+                                   var ="cat" itemValue="#{cat.id}"
+                                   itemLabel="#{cat.categoryName}" />
+                </h:selectOneMenu>
+                <h:message class="error" for=""/>
+
+                <f:facet name="footer">
+                    <h:panelGroup style="display:block; text-align:center">
+                        <h:commandButton action="#{RentalBean.searchCar}" value="Search Car"/>
+                    </h:panelGroup>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
