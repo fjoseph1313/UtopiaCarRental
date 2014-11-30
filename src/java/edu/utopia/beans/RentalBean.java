@@ -7,11 +7,15 @@ package edu.utopia.beans;
 
 import edu.utopia.facades.CarFacade;
 import edu.utopia.facades.RentFacade;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -27,10 +31,16 @@ public class RentalBean
     private RentFacade rentFacade; //DAO
     private String pLocale;
     private String dLocale;
-    private Calendar pDate;
-    private Calendar dDate;
+    private Date pDate;
+    private Date dDate;
     private Long catId;
     private List criteriaCarsList;
+    
+    public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    }
 
     public String getpLocale() {
         return pLocale;
@@ -48,19 +58,19 @@ public class RentalBean
         this.dLocale = dLocale;
     }
 
-    public Calendar getpDate() {
+    public Date getpDate() {
         return pDate;
     }
 
-    public void setpDate(Calendar pDate) {
+    public void setpDate(Date pDate) {
         this.pDate = pDate;
     }
 
-    public Calendar getdDate() {
+    public Date getdDate() {
         return dDate;
     }
 
-    public void setdDate(Calendar dDate) {
+    public void setdDate(Date dDate) {
         this.dDate = dDate;
     }
 

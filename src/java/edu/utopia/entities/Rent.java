@@ -41,6 +41,7 @@ public class Rent implements Serializable {
     @ManyToOne
     @JoinColumn(name="admin_id")
     private Admin admin;
+    private String rentStatus;
 
     public Long getId() {
         return id;
@@ -104,6 +105,14 @@ public class Rent implements Serializable {
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
+    }
+
+    public String getRentStatus() {
+        return rentStatus;
+    }
+
+    public void setRentStatus(String rentStatus) {
+        this.rentStatus = rentStatus;
     }
     
     

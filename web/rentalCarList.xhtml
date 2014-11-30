@@ -1,16 +1,48 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>UTOPIA CAR RENTAL</title>
     </h:head>
     <h:body>
-        <h:dataTable var="car" value="#{RentalBean.criteriaCarsList}">
-            <h:column>#{car.carModel}</h:column>
-            <h:column>#{car.location}</h:column>
-            <h:column>#{car.category.categoryName}</h:column>
-        </h:dataTable>
+        <p><H1>UTOPIA CAR RENTAL</H1></p><br />
+        <p><h:link outcome="index" value="HOME" /></p>
+        <h2> AVAILABLE CARS IN YOUR LOCATION! </h2>
+        <h:outputLabel value="RENT APPLICATION FORM"/><br /><br />
+
+        <h:outputLabel value="Pick Up Location: #{RentalBean.pLocale}" /><br />
+        <h:outputLabel value="Pick Up Date: #{RentalBean.pDate}" /><br />
+        <h:outputLabel value="Drop Off Location: #{RentalBean.dLocale}" /><br />
+        <h:outputLabel value="Drop Off Date: #{RentalBean.dDate}" /><br />
+        <h:form>
+            <p:dataScroller style="width:60%" value="#{RentalBean.criteriaCarsList}" var="car" chunkSize="10">
+                <f:facet name="header">
+                    AVAILABLE CARS IN YOUR LOCATION
+                </f:facet>
+
+                <h:panelGrid columns="2" style="width:60%" columnClasses="logo,detail">
+                    <h:outputText value="Picha ya Gari" />
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Car Details : "  style="font-weight: bold"/>
+                            <h:outputText value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats}Seats" style="font-weight: bold"/>
+
+                            <h:outputText value="Condition : " style="font-weight: bold" />
+                            <h:outputText value="#{car.carCondition}" />
+                            <h:outputText value="Price : " style="font-weight: bold" />
+                            <h:outputText value="$#{car.pricePerHour}" />
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+                <hr />
+            </p:dataScroller>
+        </h:form>
+
     </h:body>
 </html>
 
