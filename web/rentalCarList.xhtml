@@ -23,7 +23,7 @@
                     AVAILABLE CARS IN YOUR LOCATION
                 </f:facet>
 
-                <h:panelGrid columns="2" style="width:60%" columnClasses="logo,detail">
+                <h:panelGrid columns="3" style="width:60%" columnClasses="logo,detail">
                     <h:outputText value="Picha ya Gari" />
 
                     <p:outputPanel>
@@ -33,11 +33,15 @@
 
                             <h:outputText value="Condition : " style="font-weight: bold" />
                             <h:outputText value="#{car.carCondition}" />
+                            
                             <h:outputText value="Price : " style="font-weight: bold" />
-                            <h:outputText value="$#{car.pricePerHour}" />
-
+                            <h:outputText value="$#{car.pricePerHour} Per Hour / $#{car.pricePerHour*24} Per Day" />
+                            
                         </h:panelGrid>
                     </p:outputPanel>
+                    
+                    <h:link value="Rent Now" 
+                              outcome="rentalConfirmation?car_id=car.id&amp;pDate=#{RentalBean.pDate}&amp;dDate=#{RentalBean.dDate}" />
                 </h:panelGrid>
                 <hr />
             </p:dataScroller>
