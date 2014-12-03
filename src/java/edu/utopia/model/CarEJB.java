@@ -8,11 +8,9 @@ package edu.utopia.model;
 import edu.utopia.entities.Car;
 import static edu.utopia.entities.Car.FIND_ALL;
 import edu.utopia.facades.CarFacade;
-import edu.utopia.facades.CategoryFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -25,11 +23,9 @@ import javax.validation.constraints.NotNull;
 @Stateless
 public class CarEJB
 {
-    @PersistenceContext(unitName = "UtopiaCarRentalPU")
-    private EntityManager em;
     @EJB
     private CarFacade carFacade;
-        
+    
     
     public @NotNull Car createCar(@NotNull Car car)
     {
@@ -41,11 +37,10 @@ public class CarEJB
     {
         return this.carFacade.findAll();
     }
-    //this method uses entity's named query to find all
+    //this method uses facade's named query
     public List<Car> findCars()
     {
-        TypedQuery query = em.createNamedQuery(FIND_ALL, Car.class);
-        return query.getResultList();
+        return this.carFacade.findCarsByNamedQuery();
     }
 
 }

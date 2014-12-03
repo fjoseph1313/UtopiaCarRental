@@ -24,9 +24,6 @@ public class CategoryBean
     private CategoryEJB catEjb;
     private Category category;
     
-    /**
-     * Creates a new instance of CategoryBean
-     */
     public CategoryBean() {
         this.category = new Category();
     }
