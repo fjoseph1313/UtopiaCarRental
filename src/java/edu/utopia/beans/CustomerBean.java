@@ -7,6 +7,7 @@ package edu.utopia.beans;
 
 import edu.utopia.entities.Customer;
 import edu.utopia.facades.CustomerFacade;
+import edu.utopia.model.CustomerEJB;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -20,8 +21,10 @@ import javax.enterprise.context.RequestScoped;
 public class CustomerBean
 {
     @EJB
-    private CustomerFacade customerFacade;
+    private CustomerEJB customerEJB;
     private Customer customer;
+    
+    
     public CustomerBean()
     {
         this.customer = new Customer();
@@ -38,7 +41,7 @@ public class CustomerBean
     public String registerCustomer()
     {
         customer.setUserName(customer.getEmailAddress()); //assign username as email address
-        this.customerFacade.create(customer);
+        Customer addedCustomer = this.customerEJB.createCustomer(customer); //do manipulation with addedCustomer
         return "registerCustomer";
     }
 }
