@@ -42,5 +42,10 @@ public class CarEJB
     {
         return this.carFacade.findCarsByNamedQuery();
     }
+    
+    public List<Car> findCarsForRental(String loc, Long id)
+    {
+        return this.carFacade.findCarByLocationAndCategory(loc, id);
+    }
 
 }

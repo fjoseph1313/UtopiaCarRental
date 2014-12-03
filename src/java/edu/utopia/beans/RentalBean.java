@@ -8,6 +8,7 @@ package edu.utopia.beans;
 import edu.utopia.entities.Car;
 import edu.utopia.facades.CarFacade;
 import edu.utopia.facades.RentFacade;
+import edu.utopia.model.CarEJB;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,9 +29,8 @@ import org.primefaces.event.SelectEvent;
 public class RentalBean implements Serializable
 {
     @EJB
-    private CarFacade carFacade;
-    @EJB
-    private RentFacade rentFacade; //DAO
+    private CarEJB carEJB;
+    
     private String pLocale;
     private String dLocale;
     private Date pDate;
@@ -100,12 +100,9 @@ public class RentalBean implements Serializable
     public String searchCar()
     {
         //search car using locations and category
-        criteriaCarsList = this.carFacade.findCarByLocationAndCategory(pLocale, catId);
+        criteriaCarsList = this.carEJB.findCarsForRental(pLocale, catId);
         return "rentalCarList";
     }
-    public Car selectedCar()
-    {
-        return (Car) this.carFacade.find(carId);
-    }
+   
     
 }
