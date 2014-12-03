@@ -7,6 +7,7 @@ package edu.utopia.beans;
 
 import edu.utopia.entities.Admin;
 import edu.utopia.facades.AdminFacade;
+import edu.utopia.model.AdminEJB;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -20,7 +21,7 @@ import javax.enterprise.context.RequestScoped;
 public class AdminBean
 {
     @EJB
-    private AdminFacade adminFacade;
+    private AdminEJB adminEJB;
     private Admin admin;
     
     public AdminBean()
@@ -43,7 +44,7 @@ public class AdminBean
         {
             admin.setUserName(admin.getEmailAddress());
         }
-        this.adminFacade.create(admin);
+        Admin addedAdmin = this.adminEJB.createAdmin(admin);
         return "registerEmployee";
     }
 }
