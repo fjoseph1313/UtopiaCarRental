@@ -26,7 +26,6 @@ import org.primefaces.event.SelectEvent;
 @Named(value = "RentalBean")
 @SessionScoped
 public class RentalBean implements Serializable
-
 {
     @EJB
     private CarFacade carFacade;

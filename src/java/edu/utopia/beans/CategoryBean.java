@@ -6,7 +6,7 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Category;
-import edu.utopia.facades.CategoryFacade;
+import edu.utopia.model.CategoryEJB;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -21,7 +21,7 @@ import javax.enterprise.context.RequestScoped;
 public class CategoryBean
 {
     @EJB
-    private CategoryFacade categoryFacade;
+    private CategoryEJB catEjb;
     private Category category;
     
     /**
@@ -31,14 +31,14 @@ public class CategoryBean
         this.category = new Category();
     }
 
-    public CategoryFacade getCategoryFacade() {
-        return categoryFacade;
+    public CategoryEJB getCatEjb() {
+        return catEjb;
     }
 
-    public void setCategoryFacade(CategoryFacade categoryFacade) {
-        this.categoryFacade = categoryFacade;
+    public void setCatEjb(CategoryEJB catEjb) {
+        this.catEjb = catEjb;
     }
-
+    
     public Category getCategory() {
         return category;
     }
@@ -50,15 +50,15 @@ public class CategoryBean
     //method to create categories..
     public String postCategory()
     {
-        this.categoryFacade.create(category);
+        Category addedCategory = this.catEjb.createCategory(category);
         //clear the form after submit successfully
         category.setCategoryName("");
         category.setCategoryDescription("");
         return "addCategory";
     }
-    public List<Category> getCategories()
+    public List getCategories()
     {
-        return this.categoryFacade.findAll();
+        return this.catEjb.findAllCategories();
     }
     
 }
