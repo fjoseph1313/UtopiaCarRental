@@ -8,25 +8,23 @@ package edu.utopia.beans;
 import edu.utopia.entities.Category;
 import edu.utopia.model.CategoryEJB;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author fjoseph1313
  */
 @Named(value = "CategoryBean")
-@SessionScoped
+@RequestScoped
 public class CategoryBean implements Serializable
 {
 
     @EJB
     private CategoryEJB catEjb;
     private Category category;
-    private List<Category> categories;
 
     public CategoryBean() {
         this.category = new Category();
@@ -60,28 +58,7 @@ public class CategoryBean implements Serializable
     public List<Category> getCategories() {
         return this.catEjb.findAllCategories();
     }
-
-    public String editAction(Category category) {
-        category.setEditable(true);
-        catEjb.updateCategory(category);
-        System.out.println("test.......");
-        return null;
-    }
-    
-    public String saveAction()
-    {
-        //List cats = (List<Category>)this.getCategories(); 
-        List cats = categories;
-        Iterator citer = categories.iterator();
-        while(citer.hasNext())
-        {
-           Category cat = (Category)citer.next();
-           cat.setEditable(false);
-           this.catEjb.updateCategory(cat);
-        }
-        
-        return null;
-    }
+   
     public String deleteAction(Category cat)
     {
         this.catEjb.deleteCategory(cat);

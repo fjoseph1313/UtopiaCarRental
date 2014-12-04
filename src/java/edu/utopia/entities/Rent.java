@@ -26,10 +26,10 @@ public class Rent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date pickUpDate;
     private String pickUpLocation;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dropOffDate;
     private String dropOffLocation;
     @ManyToOne

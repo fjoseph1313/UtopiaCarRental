@@ -31,34 +31,25 @@
             </h:form>
             <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
             <h:form>
-            <h:dataTable var="cats" value="#{CategoryBean.categories}"
-                         columnClasses="oddColumn, evenColumn"
-                         rowClasses="categoryOddRow,categoryEvenRow">
-                <h:column headerClass="columnHeader" >
-                    <f:facet name="header" >CATEGORY NAME</f:facet>
-                    <h:outputText value="#{cats.categoryName}" rendered="#{not cats.editable}"/>
-                    <h:inputText value="#{cats.categoryName}" rendered="#{cats.editable}"/>
-                </h:column>
-                <h:column headerClass="columnHeader" >
-                    <f:facet name="header" >CATEGORY DESCRIPTION</f:facet>
-                    <h:outputText value="#{cats.categoryDescription}" rendered="#{not cats.editable}"/>
-                    <h:inputText value="#{cats.categoryDescription}" rendered="#{cats.editable}"/>
-                </h:column>
-                <h:column headerClass="columnHeader" >
-                    <f:facet name="header">EDIT</f:facet>
-                    <h:commandLink action="#{CategoryBean.editAction(cats)}" 
-                                   rendered="#{not cats.editable}" >
-                        <h:graphicImage library="images" name="edit.png" />
-                    </h:commandLink>
-                </h:column>
-                <h:column headerClass="columnHeader" >
-                    <f:facet name="header">ACTION</f:facet>
-                    <h:commandLink action="#{CategoryBean.deleteAction(cats)}" >
-                        <h:graphicImage library="images" name="cross.png" />
-                    </h:commandLink>
-                </h:column>
-            </h:dataTable>
-                <h:commandButton value="Save Changes" action="#{CategoryBean.saveAction}" />
+                <h:dataTable var="cat" value="#{CategoryBean.categories}"
+                             columnClasses="oddColumn, evenColumn"
+                             rowClasses="categoryOddRow,categoryEvenRow">
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >CATEGORY NAME</f:facet>
+                        <h:outputText value="#{cat.categoryName}"/>
+                    </h:column>
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >CATEGORY DESCRIPTION</f:facet>
+                        <h:outputText value="#{cat.categoryDescription}"/>
+                    </h:column>
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header">DELETE</f:facet>
+                        <h:commandLink action="#{CategoryBean.deleteAction(cat)}" >
+                            <h:graphicImage library="images" name="cross.png" />
+                        </h:commandLink>
+                    </h:column>
+                    
+                </h:dataTable>
             </h:form>
         </f:view>
     </h:body>

@@ -31,16 +31,6 @@ public class Category implements Serializable {
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Car.class)
     private List<Car> carList;
 
-    boolean editable;
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
-
     public Category() {
     }
 
