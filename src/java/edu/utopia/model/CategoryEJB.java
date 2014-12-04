@@ -28,7 +28,7 @@ public class CategoryEJB
         return category;
     }
     
-    public Category findById(Long id)
+    public Category findById(@NotNull Long id)
     {
         return this.categoryFacade.find(id);
     }
@@ -38,8 +38,12 @@ public class CategoryEJB
         return this.categoryFacade.findAll();
     }
     
-    public void updateCategory(Category category)
+    public void updateCategory(@NotNull Category category)
     {
         this.categoryFacade.edit(category);
+    }
+    public void deleteCategory(@NotNull Category category)
+    {
+        this.categoryFacade.remove(category);
     }
 }

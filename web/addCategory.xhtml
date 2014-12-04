@@ -44,12 +44,21 @@
                     <h:outputText value="#{cats.categoryDescription}" rendered="#{not cats.editable}"/>
                     <h:inputText value="#{cats.categoryDescription}" rendered="#{cats.editable}"/>
                 </h:column>
-                <h:column>
+                <h:column headerClass="columnHeader" >
+                    <f:facet name="header">EDIT</f:facet>
+                    <h:commandLink action="#{CategoryBean.editAction(cats)}" 
+                                   rendered="#{not cats.editable}" >
+                        <h:graphicImage library="images" name="edit.png" />
+                    </h:commandLink>
+                </h:column>
+                <h:column headerClass="columnHeader" >
                     <f:facet name="header">ACTION</f:facet>
-                    <h:commandLink value="EDIT" action="#{CategoryBean.editAction(cats)}" 
-                                   rendered="#{not cats.editable}" />
+                    <h:commandLink action="#{CategoryBean.deleteAction(cats)}" >
+                        <h:graphicImage library="images" name="cross.png" />
+                    </h:commandLink>
                 </h:column>
             </h:dataTable>
+                <h:commandButton value="Save Changes" action="#{CategoryBean.saveAction}" />
             </h:form>
         </f:view>
     </h:body>
