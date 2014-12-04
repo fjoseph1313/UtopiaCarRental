@@ -117,9 +117,9 @@ public class RentalBean implements Serializable
     {
         return this.carEJB.findCar(carId);
     }*/
-    public String rentCar()
+    public String rentCar(Car car)
     {
-        System.out.println("selecting a car.......");
+        System.out.println("selecting a car......."+car.getStatus());
         System.out.println("selecting a car.......");
         return "rentalConfirmation";
     }

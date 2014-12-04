@@ -59,6 +59,8 @@ public class CategoryBean {
 
     public String editAction(Category category) {
         category.setEditable(true);
+        catEjb.updateCategory(category);
+        System.out.println("test.......");
         return null;
     }
 }

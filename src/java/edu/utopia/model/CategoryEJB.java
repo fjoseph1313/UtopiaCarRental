@@ -37,4 +37,9 @@ public class CategoryEJB
     {
         return this.categoryFacade.findAll();
     }
+    
+    public void updateCategory(Category category)
+    {
+        this.categoryFacade.edit(category);
+    }
 }
