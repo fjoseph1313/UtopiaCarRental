@@ -29,7 +29,7 @@
                     <p:outputPanel>
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputText value="Car Details : "  style="font-weight: bold"/>
-                            <h:outputText value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats}Seats" style="font-weight: bold"/>
+                            <h:outputText value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats} Seats" style="font-weight: bold"/>
 
                             <h:outputText value="Condition : " style="font-weight: bold" />
                             <h:outputText value="#{car.carCondition}" />
@@ -40,8 +40,7 @@
                         </h:panelGrid>
                     </p:outputPanel>
                     
-                    <h:link value="Rent Now" 
-                              outcome="rentalConfirmation?car_id=car.id&amp;pDate=#{RentalBean.pDate}&amp;dDate=#{RentalBean.dDate}" />
+                    <h:commandLink value="Rent Now" action="RentBean.rentCar(car)" />
                 </h:panelGrid>
                 <hr />
             </p:dataScroller>

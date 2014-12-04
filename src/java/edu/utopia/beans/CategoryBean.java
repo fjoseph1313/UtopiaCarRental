@@ -18,12 +18,12 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "CategoryBean")
 @RequestScoped
-public class CategoryBean
-{
+public class CategoryBean {
+
     @EJB
     private CategoryEJB catEjb;
     private Category category;
-    
+
     public CategoryBean() {
         this.category = new Category();
     }
@@ -35,7 +35,7 @@ public class CategoryBean
     public void setCatEjb(CategoryEJB catEjb) {
         this.catEjb = catEjb;
     }
-    
+
     public Category getCategory() {
         return category;
     }
@@ -43,19 +43,22 @@ public class CategoryBean
     public void setCategory(Category category) {
         this.category = category;
     }
-    
+
     //method to create categories..
-    public String postCategory()
-    {
+    public String postCategory() {
         Category addedCategory = this.catEjb.createCategory(category);
         //clear the form after submit successfully
         category.setCategoryName("");
         category.setCategoryDescription("");
         return "addCategory";
     }
-    public List getCategories()
-    {
+
+    public List getCategories() {
         return this.catEjb.findAllCategories();
     }
-    
+
+    public String editAction(Category category) {
+        category.setEditable(true);
+        return null;
+    }
 }

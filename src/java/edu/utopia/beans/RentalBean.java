@@ -6,8 +6,6 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Car;
-import edu.utopia.facades.CarFacade;
-import edu.utopia.facades.RentFacade;
 import edu.utopia.model.CarEJB;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -38,6 +36,7 @@ public class RentalBean implements Serializable
     private Long catId;
     private List criteriaCarsList;
     private Long carId;
+    private Car selectedCar;
     
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -96,6 +95,16 @@ public class RentalBean implements Serializable
     public void setCarId(Long carId) {
         this.carId = carId;
     }
+
+    public Car getSelectedCar() {
+        return selectedCar;
+    }
+
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
+    }
+    
+    
     
     public String searchCar()
     {
@@ -104,5 +113,14 @@ public class RentalBean implements Serializable
         return "rentalCarList";
     }
    
-    
+    /*public Car selectedCar()
+    {
+        return this.carEJB.findCar(carId);
+    }*/
+    public String rentCar()
+    {
+        System.out.println("selecting a car.......");
+        System.out.println("selecting a car.......");
+        return "rentalConfirmation";
+    }
 }

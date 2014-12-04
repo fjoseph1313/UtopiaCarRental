@@ -21,16 +21,28 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Category implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String categoryName;
     private String categoryDescription;
-    @OneToMany(mappedBy="category", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=Car.class)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Car.class)
     private List<Car> carList;
-    
-    public Category(){}
+
+    boolean editable;
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    public Category() {
+    }
 
     public Long getId() {
         return id;
@@ -63,9 +75,7 @@ public class Category implements Serializable {
     public void setCarList(List<Car> carList) {
         this.carList = carList;
     }
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -90,5 +100,5 @@ public class Category implements Serializable {
     public String toString() {
         return "edu.utopia.entities.Category[ id=" + id + " ]";
     }
-    
+
 }

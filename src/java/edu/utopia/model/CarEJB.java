@@ -6,14 +6,10 @@
 package edu.utopia.model;
 
 import edu.utopia.entities.Car;
-import static edu.utopia.entities.Car.FIND_ALL;
 import edu.utopia.facades.CarFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -31,6 +27,10 @@ public class CarEJB
     {
         this.carFacade.create(car);
         return car;
+    }
+    public Car findCar(Long id)
+    {
+        return this.carFacade.find(id);
     }
     //this method uses facade's find all method
     public List<Car> findAllCars()
