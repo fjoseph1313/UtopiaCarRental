@@ -41,7 +41,7 @@ public class RentalBean implements Serializable
     private Long catId;
     private List criteriaCarsList;
     private Long carId;
-    private Car selectedCar;
+    private Car selectedCar; // should work, but not working.. dont know why!!
     
     //fixed customer for renting testing
     private Customer cust = new Customer(new Long(1), "Francis", "Joseph", "652145879", "sinza", "DAr", "TZ", "xx", "zz", "uu");
@@ -132,9 +132,11 @@ public class RentalBean implements Serializable
         newRent.setPickUpDate(pDate);
         newRent.setDropOffLocation(dLocale);
         newRent.setDropOffDate(dDate);
-        newRent.setRentStatus("request");
-        //newRent.setCustomer(cust);
-        newRent.setCar(selectedCar);
+        newRent.setRentStatus("request"); //on request the status of rent is request..
+        //newRent.setCustomer(cust); //this mus be the logged in customer!
+        selectedCar.setStatus("reserved");
+        Car rentedCar = this.carEJB.updateCar(car);
+        newRent.setCar(rentedCar);
         
         Rent addedRent = this.rentalEJB.createRent(newRent);//persisting the rent in the database..
         

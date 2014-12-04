@@ -34,7 +34,7 @@ public class CarFacade extends AbstractFacade<Car> {
     
     public List findCarByLocationAndCategory(String locale, Long id)
     {
-        Query query = em.createQuery("FROM Car r WHERE r.location=:loc AND r.category.id=:id");
+        Query query = em.createQuery("FROM Car r WHERE r.location=:loc AND r.category.id=:id AND r.status = 'available'");
         query.setParameter("loc", locale);
         query.setParameter("id", id);
         return query.getResultList();

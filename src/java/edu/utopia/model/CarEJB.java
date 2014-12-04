@@ -47,6 +47,10 @@ public class CarEJB
     {
         return this.carFacade.findCarByLocationAndCategory(loc, id);
     }
-    
+    public @NotNull Car updateCar(@NotNull Car car)
+    {
+        this.carFacade.edit(car);
+        return car;
+    }
 
 }
