@@ -5,12 +5,11 @@
  */
 package edu.utopia.model;
 
-import edu.utopia.entities.Car;
-import edu.utopia.facades.CarFacade;
+import edu.utopia.entities.Rent;
 import edu.utopia.facades.RentFacade;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -21,5 +20,9 @@ public class RentalEJB {
     @EJB
     private RentFacade rentFacade;
 
-    
+    public @NotNull Rent createRent(@NotNull Rent rent)
+    {
+        this.rentFacade.create(rent);
+        return rent;
+    }
 }

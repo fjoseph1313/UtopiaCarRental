@@ -6,7 +6,10 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Car;
+import edu.utopia.entities.Customer;
+import edu.utopia.entities.Rent;
 import edu.utopia.model.CarEJB;
+import edu.utopia.model.RentalEJB;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +30,8 @@ import org.primefaces.event.SelectEvent;
 public class RentalBean implements Serializable
 {
     @EJB
+    private RentalEJB rentalEJB;
+    @EJB
     private CarEJB carEJB;
     
     private String pLocale;
@@ -37,6 +42,10 @@ public class RentalBean implements Serializable
     private List criteriaCarsList;
     private Long carId;
     private Car selectedCar;
+    
+    //fixed customer for renting testing
+    private Customer cust = new Customer(new Long(1), "Francis", "Joseph", "652145879", "sinza", "DAr", "TZ", "xx", "zz", "uu");
+    
     
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -113,14 +122,22 @@ public class RentalBean implements Serializable
         return "rentalCarList";
     }
    
-    /*public Car selectedCar()
-    {
-        return this.carEJB.findCar(carId);
-    }*/
     public String rentCar(Car car)
     {
-        System.out.println("selecting a car......."+car.getStatus());
-        System.out.println("selecting a car.......");
+        System.out.println(car.getCarModel()+ " selected car......."+car.getStatus());
+        selectedCar = car;
+        //work with this car!
+        Rent newRent = new Rent();
+        newRent.setPickUpLocation(pLocale);
+        newRent.setPickUpDate(pDate);
+        newRent.setDropOffLocation(dLocale);
+        newRent.setDropOffDate(dDate);
+        newRent.setRentStatus("request");
+        //newRent.setCustomer(cust);
+        newRent.setCar(selectedCar);
+        
+        Rent addedRent = this.rentalEJB.createRent(newRent);//persisting the rent in the database..
+        
         return "rentalConfirmation";
     }
 }
