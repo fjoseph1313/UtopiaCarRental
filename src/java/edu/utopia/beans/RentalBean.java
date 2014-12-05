@@ -170,9 +170,11 @@ public class RentalBean implements Serializable
         fromDate = this.rentalEJB.dateParser(addedRent.getPickUpDate());
         toDate = this.rentalEJB.dateParser(addedRent.getDropOffDate());
         System.out.println("fromDate ... "+fromDate);
-        
+        Double amt = selectedCar.getPricePerHour() * 24;
+        Long amount = duration * amt.longValue();
+        String carname = selectedCar.getCarManufacturingYear()+" "+selectedCar.getCarModel();
         //send confirmation email to customer
-        this.sendMailEJB.applicationEmail("cesc.joseph@gmail.com", "Francis Joseph", "Audi Mpyaaaa", duration, new Long(123));
+        this.sendMailEJB.applicationEmail("cesc.joseph@gmail.com", "Francis Joseph", carname, duration, amount);
         
         return "rentalConfirmation";
     }
