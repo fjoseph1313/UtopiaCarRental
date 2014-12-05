@@ -16,10 +16,10 @@
                 <legend>Pickup Details</legend>
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="Pick Up : "  style="font-weight: bold"/>
-                    <h:outputText value="#{RentalBean.pLocale} on #{RentalBean.pDate}" />
+                    <h:outputText value="#{RentalBean.addedRent.pickUpLocation} on #{RentalBean.fromDate}" />
 
                     <h:outputText value="Drop Off : " style="font-weight: bold" />
-                    <h:outputText value="#{RentalBean.dLocale} on #{RentalBean.dDate}" />
+                    <h:outputText value="#{RentalBean.addedRent.dropOffLocation} on #{RentalBean.toDate}" />
                 </h:panelGrid>
 
             </fieldset>
@@ -35,6 +35,16 @@
                     <h:outputText value="Price : " style="font-weight: bold" />
                     <h:outputText value="$#{RentalBean.selectedCar.pricePerHour} Per Hour / $#{RentalBean.selectedCar.pricePerHour*24} Per Day" />
 
+                </h:panelGrid>
+            </fieldset>
+            <fieldset>
+                <legend>Payment Details</legend>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Duration of Rent : "  style="font-weight: bold"/>
+                    <h:outputText value="#{RentalBean.duration} Days"/>
+
+                    <h:outputText value="Total To Be Paid : " style="font-weight: bold" />
+                    <h:outputText value="$#{RentalBean.selectedCar.pricePerHour * RentalBean.duration * 24} On Picking Up the Car. " />
                 </h:panelGrid>
             </fieldset>
         </h:form>

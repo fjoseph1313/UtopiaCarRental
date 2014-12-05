@@ -10,12 +10,12 @@ import edu.utopia.entities.Customer;
 import edu.utopia.entities.Rent;
 import edu.utopia.model.CarEJB;
 import edu.utopia.model.RentalEJB;
+import edu.utopia.model.SendTLSMailEJB;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -31,6 +31,8 @@ import org.primefaces.event.SelectEvent;
 public class RentalBean implements Serializable
 {
     @EJB
+    private SendTLSMailEJB sendMailEJB;
+    @EJB
     private RentalEJB rentalEJB;
     @EJB
     private CarEJB carEJB;
@@ -42,7 +44,11 @@ public class RentalBean implements Serializable
     private Long catId;
     private List criteriaCarsList;
     private Long carId;
-    private Car selectedCar; // should work, but not working.. dont know why!!
+    private Car selectedCar; 
+    private Rent addedRent;
+    private String fromDate;
+    private String toDate;
+    private Long duration;
     
     //fixed customer for renting testing
     private Customer cust = new Customer(new Long(1), "Francis", "Joseph", "652145879", "sinza", "DAr", "TZ", "xx", "zz", "uu");
@@ -106,12 +112,32 @@ public class RentalBean implements Serializable
         this.carId = carId;
     }
 
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
+    }
+    
     public Car getSelectedCar() {
         return selectedCar;
     }
 
-    public void setSelectedCar(Car selectedCar) {
-        this.selectedCar = selectedCar;
+    public void setAddedRent(Rent addedRent) {
+        this.addedRent = addedRent;
+    }
+    
+    public Rent getAddedRent() {
+        return addedRent;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public Long getDuration() {
+        return duration;
     }
     
     
@@ -139,7 +165,14 @@ public class RentalBean implements Serializable
         Car rentedCar = this.carEJB.updateCar(car);
         newRent.setCar(rentedCar);
         
-        Rent addedRent = this.rentalEJB.createRent(newRent);//persisting the rent in the database..
+        addedRent = this.rentalEJB.createRent(newRent);//persisting the rent in the database..
+        duration = this.rentalEJB.dateDifference(dDate, pDate);
+        fromDate = this.rentalEJB.dateParser(addedRent.getPickUpDate());
+        toDate = this.rentalEJB.dateParser(addedRent.getDropOffDate());
+        System.out.println("fromDate ... "+fromDate);
+        
+        //send confirmation email to customer
+        this.sendMailEJB.applicationEmail("cesc.joseph@gmail.com", "Francis Joseph", "Audi Mpyaaaa", duration, new Long(123));
         
         return "rentalConfirmation";
     }
