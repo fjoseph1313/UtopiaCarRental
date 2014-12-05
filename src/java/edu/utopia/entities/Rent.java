@@ -6,14 +6,17 @@
 package edu.utopia.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -43,6 +46,8 @@ public class Rent implements Serializable {
     @JoinColumn(name="admin_id")
     private Admin admin;
     private String rentStatus;
+    @OneToMany(mappedBy="rent", targetEntity=Payment.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Payment> payments;
 
     public Long getId() {
         return id;
@@ -114,6 +119,14 @@ public class Rent implements Serializable {
 
     public void setRentStatus(String rentStatus) {
         this.rentStatus = rentStatus;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
     
     
