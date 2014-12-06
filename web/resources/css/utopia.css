@@ -20,15 +20,31 @@ and open the template in the editor.
     background-color: appworkspace;
 }
 .categoryOddRow{
-   text-align:center;
-   background:none repeat scroll 0 0 #FFFFFF;	
+    text-align:center;
+    background:none repeat scroll 0 0 #FFFFFF;	
 }
 
 .categoryEvenRow{
-   text-align:center;
-   background:none repeat scroll 0 0 #D3D3D3;
+    text-align:center;
+    background:none repeat scroll 0 0 #D3D3D3;
 }
 .error{
     font-weight: bold;
     color: red;
 }
+fieldset {
+    background-color: #E0E0FF;
+    border: 2px outset gray;
+    border-radius: 10px;
+}
+input[type="submit"] {
+    background-color: #FAA;
+    font-size: 120%;
+    font-weight: bold;
+}
+legend {
+    background-color: white;
+    border: 2px outset gray;
+    padding: 0.2em;
+}
+

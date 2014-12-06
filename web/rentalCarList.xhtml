@@ -6,6 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>UTOPIA CAR RENTAL</title>
+        <h:outputStylesheet library="css" name="utopia.css" />
     </h:head>
     <h:body>
         <p><H1>UTOPIA CAR RENTAL</H1></p><br />
@@ -16,34 +17,38 @@
         <h:outputLabel value="Pick Up Location: #{RentalBean.pLocale}" /><br />
         <h:outputLabel value="Pick Up Date: #{RentalBean.pDate}" /><br />
         <h:outputLabel value="Drop Off Location: #{RentalBean.dLocale}" /><br />
-        <h:outputLabel value="Drop Off Date: #{RentalBean.dDate}" /><br />
-        <h:form>
-            <p:dataScroller style="width:60%" value="#{RentalBean.criteriaCarsList}" var="car" chunkSize="10">
+        <h:outputLabel value="Drop Off Date: #{RentalBean.dDate}" /><br /><br /><br />
+        <h:outputLabel style="font-weight: bold" value="NO CAR AVAILABLE FOR THE CRITERIA YOU SPECIFIED" rendered="#{RentalBean.listSize == 0}"/>
+        <br />
+        <h:outputLabel value="Please Try Next time!!" rendered="#{RentalBean.listSize == 0}"/>
+        <h:form >
+            <h:dataTable value="#{RentalBean.criteriaCarsList}" var="car" rendered="#{RentalBean.listSize > 0}"
+                         columnClasses="oddColumn, evenColumn"
+                         rowClasses="categoryOddRow,categoryEvenRow"
+                         headerClass="columnHeader">
                 <f:facet name="header">
                     AVAILABLE CARS IN YOUR LOCATION
                 </f:facet>
-
-                <h:panelGrid columns="3" style="width:60%" columnClasses="logo,detail">
+                <h:column>
                     <h:outputText value="Picha ya Gari" />
+                </h:column>
+                <h:column>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Car Details : " style="font-weight: bold"/>
+                        <h:outputText value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats} Seats" style="font-weight: bold"/>
 
-                    <p:outputPanel>
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputText value="Car Details : "  style="font-weight: bold"/>
-                            <h:outputText value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats} Seats" style="font-weight: bold"/>
+                        <h:outputText value="Condition : " style="font-weight: bold" />
+                        <h:outputText value="#{car.carCondition}" />
 
-                            <h:outputText value="Condition : " style="font-weight: bold" />
-                            <h:outputText value="#{car.carCondition}" />
-                            
-                            <h:outputText value="Price : " style="font-weight: bold" />
-                            <h:outputText value="$#{car.pricePerHour} Per Hour / $#{car.pricePerHour*24} Per Day" />
-                            
-                        </h:panelGrid>
-                    </p:outputPanel>
-                    
+                        <h:outputText value="Price : " style="font-weight: bold" />
+                        <h:outputText value="$#{car.pricePerHour} Per Hour / $#{car.pricePerHour*24} Per Day" />
+
+                    </h:panelGrid>
+                </h:column>
+                <h:column>
                     <h:commandLink value="Rent Now" action="#{RentalBean.rentCar(car)}" />
-                </h:panelGrid>
-                <hr />
-            </p:dataScroller>
+                </h:column>
+            </h:dataTable>
         </h:form>
 
     </h:body>

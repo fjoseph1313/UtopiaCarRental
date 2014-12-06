@@ -20,6 +20,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -28,15 +29,15 @@ import org.primefaces.event.SelectEvent;
  */
 @Named(value = "RentalBean")
 @SessionScoped
-public class RentalBean implements Serializable
-{
+public class RentalBean implements Serializable {
+
     @EJB
     private SendTLSMailEJB sendMailEJB;
     @EJB
     private RentalEJB rentalEJB;
     @EJB
     private CarEJB carEJB;
-    
+
     private String pLocale;
     private String dLocale;
     private Date pDate;
@@ -44,16 +45,16 @@ public class RentalBean implements Serializable
     private Long catId;
     private List criteriaCarsList;
     private Long carId;
-    private Car selectedCar; 
+    private Car selectedCar;
     private Rent addedRent;
     private String fromDate;
     private String toDate;
     private Long duration;
-    
+    private int listSize;
+
     //fixed customer for renting testing
     private Customer cust = new Customer(new Long(1), "Francis", "Joseph", "652145879", "sinza", "DAr", "TZ", "xx", "zz", "uu");
-    
-    
+
     public void onDateSelect(SelectEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -115,7 +116,7 @@ public class RentalBean implements Serializable
     public void setSelectedCar(Car selectedCar) {
         this.selectedCar = selectedCar;
     }
-    
+
     public Car getSelectedCar() {
         return selectedCar;
     }
@@ -123,7 +124,7 @@ public class RentalBean implements Serializable
     public void setAddedRent(Rent addedRent) {
         this.addedRent = addedRent;
     }
-    
+
     public Rent getAddedRent() {
         return addedRent;
     }
@@ -139,19 +140,27 @@ public class RentalBean implements Serializable
     public Long getDuration() {
         return duration;
     }
+
+    public int getListSize() {
+        return listSize;
+    }
+
+    public void setListSize(int listSize) {
+        this.listSize = listSize;
+    }
     
     
     
-    public String searchCar()
-    {
+
+    public String searchCar() {
         //search car using locations and category
         criteriaCarsList = this.carEJB.findCarsForRental(pLocale, catId);
+        listSize = this.carEJB.findCarsForRental(pLocale, catId).size();
         return "rentalCarList";
     }
-   
-    public String rentCar(Car car)
-    {
-        System.out.println(car.getCarModel()+ " selected car......."+car.getStatus());
+
+    public String rentCar(Car car) {
+        System.out.println(car.getCarModel() + " selected car......." + car.getStatus());
         selectedCar = car;
         //work with this car!
         Rent newRent = new Rent();
@@ -164,18 +173,21 @@ public class RentalBean implements Serializable
         selectedCar.setStatus("reserved");
         Car rentedCar = this.carEJB.updateCar(car);
         newRent.setCar(rentedCar);
-        
+
         addedRent = this.rentalEJB.createRent(newRent);//persisting the rent in the database..
         duration = this.rentalEJB.dateDifference(dDate, pDate);
         fromDate = this.rentalEJB.dateParser(addedRent.getPickUpDate());
         toDate = this.rentalEJB.dateParser(addedRent.getDropOffDate());
-        System.out.println("fromDate ... "+fromDate);
+        System.out.println("fromDate ... " + fromDate);
         Double amt = selectedCar.getPricePerHour() * 24;
         Long amount = duration * amt.longValue();
-        String carname = selectedCar.getCarManufacturingYear()+" "+selectedCar.getCarModel();
+        String carname = selectedCar.getCarManufacturingYear() + " " + selectedCar.getCarModel();
         //send confirmation email to customer
-        this.sendMailEJB.applicationEmail("cesc.joseph@gmail.com", "Francis Joseph", carname, duration, amount);
         
+        //this.sendMailEJB.applicationEmail("cesc.joseph@gmail.com", "Francis Joseph", carname, duration, amount);
+        //empty session rent
+        newRent = null;
+
         return "rentalConfirmation";
     }
 }
