@@ -25,6 +25,7 @@ public class CategoryBean implements Serializable
     @EJB
     private CategoryEJB catEjb;
     private Category category;
+    private int catSize;
 
     public CategoryBean() {
         this.category = new Category();
@@ -46,6 +47,17 @@ public class CategoryBean implements Serializable
         this.category = category;
     }
 
+    public int getCatSize() {
+        return catSize;
+    }
+
+    public void setCatSize(int catSize) {
+        this.catSize = catSize;
+    }
+    
+    
+    
+
     //method to create categories..
     public String postCategory() {
         Category addedCategory = this.catEjb.createCategory(category);
@@ -56,6 +68,7 @@ public class CategoryBean implements Serializable
     }
 
     public List<Category> getCategories() {
+        catSize = this.catEjb.findAllCategories().size();
         return this.catEjb.findAllCategories();
     }
    

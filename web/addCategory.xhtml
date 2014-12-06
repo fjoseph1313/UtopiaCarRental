@@ -31,7 +31,7 @@
             </h:form>
             <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
             <h:form>
-                <h:dataTable var="cat" value="#{CategoryBean.categories}"
+                <h:dataTable rendered="#{CategoryBean.catSize > 0}" var="cat" value="#{CategoryBean.categories}"
                              columnClasses="oddColumn, evenColumn"
                              rowClasses="categoryOddRow,categoryEvenRow">
                     <h:column headerClass="columnHeader" >

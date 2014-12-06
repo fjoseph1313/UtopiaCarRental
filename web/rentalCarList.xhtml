@@ -21,6 +21,7 @@
         <h:outputLabel style="font-weight: bold" value="NO CAR AVAILABLE FOR THE CRITERIA YOU SPECIFIED" rendered="#{RentalBean.listSize == 0}"/>
         <br />
         <h:outputLabel value="Please Try Next time!!" rendered="#{RentalBean.listSize == 0}"/>
+        <h:outputLabel value="#{RentalBean.listSize}"/>
         <h:form styleClass="jsfcrud_list_form">
             <h:dataTable value="#{RentalBean.criteriaCarsList}" var="car" rendered="#{RentalBean.listSize > 0}"
                          columnClasses="oddColumn, evenColumn"

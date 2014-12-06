@@ -113,6 +113,10 @@ public class RentalBean implements Serializable {
     public void setCatId(Long carId) {
         this.carId = carId;
     }
+    public Long getCatId()
+    {
+        return catId;
+    }
 
     public List getCriteriaCarsList() {
         return criteriaCarsList;
