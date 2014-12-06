@@ -20,12 +20,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author DiRauniyar
  */
 @Entity
 public class Rent implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,14 +38,17 @@ public class Rent implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dropOffDate;
     private String dropOffLocation;
+    private String reservationCode;
+
     @ManyToOne
-    @JoinColumn(name="car_id")
+    @JoinColumn(name = "car_id")
     private Car car;
+
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
     @ManyToOne
-    @JoinColumn(name="admin_id")
+    @JoinColumn(name = "admin_id")
     private Admin admin;
     private String rentStatus;
     @OneToMany(mappedBy="rent", targetEntity=Payment.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
@@ -113,6 +118,14 @@ public class Rent implements Serializable {
         this.admin = admin;
     }
 
+    public String getReservationCode() {
+        return reservationCode;
+    }
+
+    public void setReservationCode(String reservationCode) {
+        this.reservationCode = reservationCode;
+    }
+
     public String getRentStatus() {
         return rentStatus;
     }
@@ -121,16 +134,6 @@ public class Rent implements Serializable {
         this.rentStatus = rentStatus;
     }
 
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
-    }
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -155,5 +158,5 @@ public class Rent implements Serializable {
     public String toString() {
         return "edu.utopia.entities.Rent[ id=" + id + " ]";
     }
-    
+
 }

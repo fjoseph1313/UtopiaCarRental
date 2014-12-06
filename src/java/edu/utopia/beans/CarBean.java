@@ -25,6 +25,8 @@ import javax.enterprise.context.RequestScoped;
 public class CarBean 
 {
     @EJB
+    private CarFacade carFacade;
+    @EJB
     private CarEJB carEJB;
     @EJB
     private CategoryEJB categoryEJB;
@@ -70,5 +72,13 @@ public class CarBean
         //return this.carEJB.findAllCars(); //from ejb's facade
         return this.carEJB.findCars(); //from ejb's named query
     }
+ 
+     public void updateCar(Car car)
+   {
+       this.car.setStatus(car.getStatus());
+//       rent.setAdmin(null);
+       this.carFacade.updateCar(car);
+   }
+    
     
 }

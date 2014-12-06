@@ -20,6 +20,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CarFacade extends AbstractFacade<Car> {
+
     @PersistenceContext(unitName = "UtopiaCarRentalPU")
     private EntityManager em;
 
@@ -31,13 +32,17 @@ public class CarFacade extends AbstractFacade<Car> {
     public CarFacade() {
         super(Car.class);
     }
-    
-    public List findCarByLocationAndCategory(String locale, Long id)
-    {
-        Query query = em.createQuery("FROM Car r WHERE r.location=:loc AND r.category.id=:id AND r.status = 'available'");
+
+    public List findCarByLocationAndCategory(String locale, Long id) {
+        Query query = em.createQuery("FROM Car r WHERE r.location=:loc AND r.category.id=:id");
         query.setParameter("loc", locale);
         query.setParameter("id", id);
         return query.getResultList();
+    }
+
+    public Car updateCar(Car car) {
+        edit(car);
+        return car;
     }
     //this method uses entity's named query to find all
     public List<Car> findCarsByNamedQuery()
