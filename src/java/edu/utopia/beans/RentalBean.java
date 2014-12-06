@@ -5,14 +5,15 @@
  */
 package edu.utopia.beans;
 
+import edu.utopia.entities.Car;
+import edu.utopia.entities.Customer;
 import edu.utopia.entities.Rent;
 import edu.utopia.facades.CarFacade;
 import edu.utopia.facades.RentFacade;
 import edu.utopia.model.CarEJB;
 import edu.utopia.model.RentalEJB;
 import java.io.Serializable;
-
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -21,7 +22,14 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -34,17 +42,8 @@ public class RentalBean implements Serializable {
 
     @EJB
     private RentFacade rentFacade;
-
     @EJB
     private CarFacade carFacade;
-
-    public Rent getRent() {
-        return rent;
-    }
-
-    public void setRent(Rent rent) {
-        this.rent = rent;
-    }
     @EJB
     private RentalEJB rentalEJB;
     @EJB
@@ -55,12 +54,16 @@ public class RentalBean implements Serializable {
     private Date pDate;
     private Date dDate;
     private Long carId;
+    private Long catId;
     private Car selectedCar;
     private Rent addedRent;
     private String fromDate;
     private String toDate;
     private Long duration;
     private int listSize;
+    private Rent rent;
+    private List criteriaCarsList;
+    private List requestedRentList;
 
     //fixed customer for renting testing
     private Customer cust = new Customer(new Long(1), "Francis", "Joseph", "652145879", "sinza", "DAr", "TZ", "xx", "zz", "uu");
@@ -115,10 +118,6 @@ public class RentalBean implements Serializable {
         return criteriaCarsList;
     }
 
-    public Long getCarId() {
-        return carId;
-    }
-
     public void setCarId(Long carId) {
         this.carId = carId;
     }
@@ -158,10 +157,26 @@ public class RentalBean implements Serializable {
     public void setListSize(int listSize) {
         this.listSize = listSize;
     }
-    
-    
-    
 
+    public Rent getRent() {
+        return rent;
+    }
+
+    public void setRent(Rent rent) {
+        this.rent = rent;
+    }
+
+    public List getRequestedRentList() {
+        return requestedRentList;
+    }
+
+    public void setRequestedRentList(List requestedRentList) {
+        this.requestedRentList = requestedRentList;
+    }
+    
+    
+    
+    
     public String searchCar() {
         //search car using locations and category
         criteriaCarsList = this.carEJB.findCarsForRental(pLocale, catId);
@@ -193,13 +208,15 @@ public class RentalBean implements Serializable {
         Long amount = duration * amt.longValue();
         String carname = selectedCar.getCarManufacturingYear() + " " + selectedCar.getCarModel();
         //send confirmation email to customer
-        
+
         //this.sendMailEJB.applicationEmail("cesc.joseph@gmail.com", "Francis Joseph", carname, duration, amount);
         //empty session rent
         newRent = null;
 
         return "rentalConfirmation";
-    // return list of all requested car rentss
+        // return list of all requested car rentss
+    }
+
     public List<Rent> getRequestedRents() {
         System.out.println("requested rents-----");
         requestedRentList = this.rentFacade.findRequestedRent();

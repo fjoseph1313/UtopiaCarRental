@@ -8,7 +8,6 @@ package edu.utopia.model;
 import edu.utopia.entities.Rent;
 import edu.utopia.facades.RentFacade;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
