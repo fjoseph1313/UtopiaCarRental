@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Rent implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,14 +33,18 @@ public class Rent implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dropOffDate;
     private String dropOffLocation;
+    private String rentStatus;
+    private String reservationCode;
+
     @ManyToOne
-    @JoinColumn(name="car_id")
+    @JoinColumn(name = "car_id")
     private Car car;
+
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
     @ManyToOne
-    @JoinColumn(name="admin_id")
+    @JoinColumn(name = "admin_id")
     private Admin admin;
 
     public Long getId() {
@@ -105,9 +110,23 @@ public class Rent implements Serializable {
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
-    
-    
-    
+
+    public String getReservationCode() {
+        return reservationCode;
+    }
+
+    public void setReservationCode(String reservationCode) {
+        this.reservationCode = reservationCode;
+    }
+
+    public String getRentStatus() {
+        return rentStatus;
+    }
+
+    public void setRentStatus(String rentStatus) {
+        this.rentStatus = rentStatus;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -132,5 +151,5 @@ public class Rent implements Serializable {
     public String toString() {
         return "edu.utopia.entities.Rent[ id=" + id + " ]";
     }
-    
+
 }

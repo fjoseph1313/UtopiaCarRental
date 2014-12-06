@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Utopia Car Rental</title>
+        <h:outputStylesheet library="css" name="utopia.css" />
+    </h:head>
+    <h:body>
+        <p><H1>THE HOME OF UTOPIA CAR RENTAL</H1></p><br />
+        <p><h:link outcome="index" value="HOME" /></p>
+        <f:view>
+            <h:form>
+                <!--<h:commandButton action="# { RentalBean.requestedRents}" value="view requested rents"/>-->
+
+                <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
+                <h:dataTable var="rent" value="#{RentalBean.requestedRents}">
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Drop Of Date</f:facet>
+                        <h:outputText id="dropOffDate" value="#{rent.dropOffDate}"/>
+
+                    </h:column>
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Drop Of Location</f:facet>
+                            #{rent.dropOffLocation}
+                    </h:column>
+
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Pick Up Date</f:facet>
+                            #{rent.pickUpDate}
+                    </h:column>
+
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Pick up Location</f:facet>
+                            #{rent.pickUpLocation}
+
+                    </h:column>
+
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Rental Status</f:facet>
+                            #{rent.rentStatus}
+                    </h:column>
+
+
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Approve</f:facet>
+                        <h:commandLink value="Approve" action="#{RentalBean.approveRequestedRent(rent)}"/>
+                    </h:column>
+
+
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >Disapprove</f:facet>
+                        <h:commandLink value="Disapprove" action="#{RentalBean.disapproveRequestedRent(rent)}"/>
+                    </h:column>
+                    
+                    <h:column headerClass="columnHeader" >
+                        <f:facet name="header" >View</f:facet>
+                        <h:commandLink value="View" action="#{RentalBean.getRequestedRentInformation(rent)}"/>
+                    </h:column>
+
+
+                </h:dataTable>
+
+
+
+
+                <!--                       <h:form>
+                               
+                                    <h:commandButton value="Approve" action="# {RentalBean.approveRequestedRent}"/>
+                                    <h:commandButton value="Disapprove"/>
+                                
+                                
+                                </h:form>-->   
+            </h:form>
+
+
+
+
+        </f:view>
+    </h:body>
+</html>

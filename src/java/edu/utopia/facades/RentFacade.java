@@ -6,9 +6,11 @@
 package edu.utopia.facades;
 
 import edu.utopia.entities.Rent;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RentFacade extends AbstractFacade<Rent> {
+
     @PersistenceContext(unitName = "UtopiaCarRentalPU")
     private EntityManager em;
 
@@ -27,7 +30,21 @@ public class RentFacade extends AbstractFacade<Rent> {
     public RentFacade() {
         super(Rent.class);
     }
-    
-    
-    
+
+    public List findRequestedRent() {
+        Query query = em.createQuery("From Rent r WHERE r.rentStatus='requested'");
+        System.out.println("here is " + query);
+        return query.getResultList();
+    }
+
+    public Rent approveRent(Rent rent) {
+        edit(rent);
+        return rent;
+    }
+
+    public Rent disapproveRent(Rent rent) {
+        edit(rent);
+        return rent;
+    }
+
 }

@@ -66,5 +66,13 @@ public class CarBean
     {
         return this.carFacade.findAll();
     }
+ 
+     public void updateCar(Car car)
+   {
+       this.car.setStatus(car.getStatus());
+//       rent.setAdmin(null);
+       this.carFacade.updateCar(car);
+   }
+    
     
 }
