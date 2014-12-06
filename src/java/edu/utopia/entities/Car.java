@@ -5,6 +5,7 @@
  */
 package edu.utopia.entities;
 
+import static edu.utopia.entities.Car.FIND_ALL;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -23,9 +25,11 @@ import javax.persistence.Transient;
  * @author kashraf
  */
 @Entity
+@NamedQuery(name = FIND_ALL, query="SELECT c FROM Car c")
 public class Car implements Serializable 
 {
     private static final long serialVersionUID = 1L;
+    public static final String FIND_ALL = "Car.findAllCars";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

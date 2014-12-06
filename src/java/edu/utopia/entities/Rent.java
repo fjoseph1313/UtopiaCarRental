@@ -7,14 +7,19 @@ package edu.utopia.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 /**
  *
@@ -27,13 +32,12 @@ public class Rent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date pickUpDate;
     private String pickUpLocation;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dropOffDate;
     private String dropOffLocation;
-    private String rentStatus;
     private String reservationCode;
 
     @ManyToOne
@@ -46,6 +50,9 @@ public class Rent implements Serializable {
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
+    private String rentStatus;
+    @OneToMany(mappedBy="rent", targetEntity=Payment.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Payment> payments;
 
     public Long getId() {
         return id;

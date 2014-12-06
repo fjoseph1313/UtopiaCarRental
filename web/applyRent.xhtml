@@ -6,12 +6,6 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>UTOPIA CAR RENTAL</title>
-        <h:outputScript library="js" name="utopia.js" />
-        <script>
-            $(function(){
-                $(".datepicker").datepicker();
-            });
-        </script>
     </h:head>
     <h:body>
         <p><H1>UTOPIA CAR RENTAL</H1></p><br />
@@ -19,7 +13,7 @@
         <h2> WANT TO GO SOMEWHERE? RENT! </h2>
         <h:outputLabel value="RENT APPLICATION FORM"/><br /><br />
         <h:form>
-            <h:panelGrid columns="3" border="0" bgcolor="gray">
+            <h:panelGrid columns="3" border="0" bgcolor="skyblue">
 
                 <h:outputLabel value="PickUp Location :"/>
                 <h:inputText value="#{RentalBean.pLocale}" />

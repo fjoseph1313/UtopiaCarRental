@@ -21,6 +21,8 @@ public class Admin extends Person
 {
     @OneToMany(mappedBy="admin", targetEntity=Rent.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Rent> adminRentList;
+    @OneToMany(mappedBy="admin", targetEntity=Payment.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Payment> adminPayments;
     
     public Admin(){}
     public Admin(Long id, String f, String l, String p, String st, String c, String sta, String z, String e, String u) 
@@ -34,6 +36,14 @@ public class Admin extends Person
 
     public void setAdminRentList(List<Rent> adminRentList) {
         this.adminRentList = adminRentList;
+    }
+
+    public List<Payment> getAdminPayments() {
+        return adminPayments;
+    }
+
+    public void setAdminPayments(List<Payment> adminPayments) {
+        this.adminPayments = adminPayments;
     }
     
     

@@ -9,6 +9,8 @@ import edu.utopia.entities.Car;
 import edu.utopia.entities.Category;
 import edu.utopia.facades.CarFacade;
 import edu.utopia.facades.CategoryFacade;
+import edu.utopia.model.CarEJB;
+import edu.utopia.model.CategoryEJB;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -23,9 +25,12 @@ import javax.enterprise.context.RequestScoped;
 public class CarBean 
 {
     @EJB
-    private CategoryFacade categoryFacade;
-    @EJB
     private CarFacade carFacade;
+    @EJB
+    private CarEJB carEJB;
+    @EJB
+    private CategoryEJB categoryEJB;
+    
     
     private Car car;
     private Long catId;
@@ -55,16 +60,17 @@ public class CarBean
     public String registerCar()
     {
         //before persiting car entity, fetch its category from a selected category.
-        Category cat = (Category)this.categoryFacade.find(catId);
+        Category cat = (Category)this.categoryEJB.findById(catId);
         car.setCategory(cat);
         car.setStatus("available");
-        this.carFacade.create(car);//persisting a car entity and empty the form
+        this.carEJB.createCar(car);//persisting a car entity and empty the form
         return "addCar";
     }
     
     public List<Car> getCarList()
     {
-        return this.carFacade.findAll();
+        //return this.carEJB.findAllCars(); //from ejb's facade
+        return this.carEJB.findCars(); //from ejb's named query
     }
  
      public void updateCar(Car car)

@@ -8,6 +8,8 @@ package edu.utopia.beans;
 import edu.utopia.entities.Rent;
 import edu.utopia.facades.CarFacade;
 import edu.utopia.facades.RentFacade;
+import edu.utopia.model.CarEJB;
+import edu.utopia.model.RentalEJB;
 import java.io.Serializable;
 
 import java.util.Calendar;
@@ -33,6 +35,8 @@ import javax.mail.internet.MimeMessage;
 @Named(value = "RentalBean")
 @SessionScoped
 public class RentalBean implements Serializable {
+    @EJB
+    private RentFacade rentFacade;
 
     @EJB
     private CarFacade carFacade;
@@ -45,11 +49,14 @@ public class RentalBean implements Serializable {
         this.rent = rent;
     }
     @EJB
-    private RentFacade rentFacade; //DAO
+    private RentalEJB rentalEJB;
+    @EJB
+    private CarEJB carEJB;
+    
     private String pLocale;
     private String dLocale;
-    private Calendar pDate;
-    private Calendar dDate;
+    private Date pDate;
+    private Date dDate;
     private Long carId;
     private Long customerId;
     private List criteriaCarsList;
@@ -88,19 +95,19 @@ public class RentalBean implements Serializable {
         this.dLocale = dLocale;
     }
 
-    public Calendar getpDate() {
+    public Date getpDate() {
         return pDate;
     }
 
-    public void setpDate(Calendar pDate) {
+    public void setpDate(Date pDate) {
         this.pDate = pDate;
     }
 
-    public Calendar getdDate() {
+    public Date getdDate() {
         return dDate;
     }
 
-    public void setdDate(Calendar dDate) {
+    public void setdDate(Date dDate) {
         this.dDate = dDate;
     }
 

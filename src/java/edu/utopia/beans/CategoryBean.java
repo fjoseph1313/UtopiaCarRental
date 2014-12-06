@@ -6,11 +6,12 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Category;
-import edu.utopia.facades.CategoryFacade;
+import edu.utopia.model.CategoryEJB;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
 /**
  *
@@ -18,25 +19,23 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "CategoryBean")
 @RequestScoped
-public class CategoryBean
+public class CategoryBean implements Serializable
 {
+
     @EJB
-    private CategoryFacade categoryFacade;
+    private CategoryEJB catEjb;
     private Category category;
-    
-    /**
-     * Creates a new instance of CategoryBean
-     */
+
     public CategoryBean() {
         this.category = new Category();
     }
 
-    public CategoryFacade getCategoryFacade() {
-        return categoryFacade;
+    public CategoryEJB getCatEjb() {
+        return catEjb;
     }
 
-    public void setCategoryFacade(CategoryFacade categoryFacade) {
-        this.categoryFacade = categoryFacade;
+    public void setCatEjb(CategoryEJB catEjb) {
+        this.catEjb = catEjb;
     }
 
     public Category getCategory() {
@@ -46,19 +45,23 @@ public class CategoryBean
     public void setCategory(Category category) {
         this.category = category;
     }
-    
+
     //method to create categories..
-    public String postCategory()
-    {
-        this.categoryFacade.create(category);
+    public String postCategory() {
+        Category addedCategory = this.catEjb.createCategory(category);
         //clear the form after submit successfully
         category.setCategoryName("");
         category.setCategoryDescription("");
         return "addCategory";
     }
-    public List<Category> getCategories()
-    {
-        return this.categoryFacade.findAll();
+
+    public List<Category> getCategories() {
+        return this.catEjb.findAllCategories();
     }
-    
+   
+    public String deleteAction(Category cat)
+    {
+        this.catEjb.deleteCategory(cat);
+        return null;
+    }
 }
