@@ -184,7 +184,7 @@ public class RentalBean implements Serializable {
     public String searchCar() {
         //search car using locations and category
         criteriaCarsList = this.carEJB.findCarsForRental(pLocale, catId);
-        listSize = this.carEJB.findCarsForRental(pLocale, catId).size();
+        listSize = criteriaCarsList.size();
         return "rentalCarList";
     }
 

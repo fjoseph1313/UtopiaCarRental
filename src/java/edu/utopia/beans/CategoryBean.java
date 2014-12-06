@@ -48,7 +48,7 @@ public class CategoryBean implements Serializable
     }
 
     public int getCatSize() {
-        return catSize;
+        return this.catEjb.findAllCategories().size();
     }
 
     public void setCatSize(int catSize) {
@@ -68,7 +68,8 @@ public class CategoryBean implements Serializable
     }
 
     public List<Category> getCategories() {
-        catSize = this.catEjb.findAllCategories().size();
+        catSize = (int)this.catEjb.findAllCategories().size();
+        System.out.println("size of the category list is ........ "+catSize);
         return this.catEjb.findAllCategories();
     }
    
