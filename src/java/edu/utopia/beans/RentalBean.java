@@ -155,7 +155,9 @@ public class RentalBean implements Serializable {
     }
 
     public int getListSize() {
-        return listSize;
+        System.out.println("eti size ni ..."+listSize);
+        return this.carEJB.findCarsForRental(pLocale, catId).size();
+        
     }
 
     public void setListSize(int listSize) {
@@ -185,6 +187,7 @@ public class RentalBean implements Serializable {
         //search car using locations and category
         criteriaCarsList = this.carEJB.findCarsForRental(pLocale, catId);
         listSize = criteriaCarsList.size();
+        System.out.println("Car list ......."+listSize);
         return "rentalCarList";
     }
 
