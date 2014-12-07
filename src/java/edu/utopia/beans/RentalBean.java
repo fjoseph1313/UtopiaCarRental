@@ -8,28 +8,20 @@ package edu.utopia.beans;
 import edu.utopia.entities.Car;
 import edu.utopia.entities.Customer;
 import edu.utopia.entities.Rent;
-import edu.utopia.facades.CarFacade;
-import edu.utopia.facades.RentFacade;
 import edu.utopia.model.CarEJB;
 import edu.utopia.model.RentalEJB;
+import edu.utopia.model.SendTLSMailEJB;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 import javax.ejb.EJB;
+import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -41,9 +33,7 @@ import org.primefaces.event.SelectEvent;
 public class RentalBean implements Serializable {
 
     @EJB
-    private RentFacade rentFacade;
-    @EJB
-    private CarFacade carFacade;
+    private SendTLSMailEJB sendMailEJB;
     @EJB
     private RentalEJB rentalEJB;
     @EJB
@@ -53,17 +43,17 @@ public class RentalBean implements Serializable {
     private String dLocale;
     private Date pDate;
     private Date dDate;
-    private Long carId;
     private Long catId;
+    private List criteriaCarsList;
+    private Long carId;
     private Car selectedCar;
     private Rent addedRent;
     private String fromDate;
     private String toDate;
     private Long duration;
     private int listSize;
+    private List<Rent> requestedRents;
     private Rent rent;
-    private List criteriaCarsList;
-    private List requestedRentList;
 
     //fixed customer for renting testing
     private Customer cust = new Customer(new Long(1), "Francis", "Joseph", "652145879", "sinza", "DAr", "TZ", "xx", "zz", "uu");
@@ -106,20 +96,20 @@ public class RentalBean implements Serializable {
         this.dDate = dDate;
     }
 
-    public Long getCarId() {
-        return carId;
+    public Long getCatId() {
+        return catId;
     }
 
-    public void setCatId(Long carId) {
-        this.carId = carId;
-    }
-    public Long getCatId()
-    {
-        return catId;
+    public void setCatId(Long catId) {
+        this.catId = catId;
     }
 
     public List getCriteriaCarsList() {
         return criteriaCarsList;
+    }
+
+    public Long getCarId() {
+        return carId;
     }
 
     public void setCarId(Long carId) {
@@ -155,9 +145,7 @@ public class RentalBean implements Serializable {
     }
 
     public int getListSize() {
-        System.out.println("eti size ni ..."+listSize);
-        return this.carEJB.findCarsForRental(pLocale, catId).size();
-        
+        return listSize;
     }
 
     public void setListSize(int listSize) {
@@ -171,23 +159,13 @@ public class RentalBean implements Serializable {
     public void setRent(Rent rent) {
         this.rent = rent;
     }
+    
+    
 
-    public List getRequestedRentList() {
-        return requestedRentList;
-    }
-
-    public void setRequestedRentList(List requestedRentList) {
-        this.requestedRentList = requestedRentList;
-    }
-    
-    
-    
-    
     public String searchCar() {
         //search car using locations and category
         criteriaCarsList = this.carEJB.findCarsForRental(pLocale, catId);
-        listSize = criteriaCarsList.size();
-        System.out.println("Car list ......."+listSize);
+        listSize = this.carEJB.findCarsForRental(pLocale, catId).size();
         return "rentalCarList";
     }
 
@@ -221,13 +199,11 @@ public class RentalBean implements Serializable {
         newRent = null;
 
         return "rentalConfirmation";
-        // return list of all requested car rentss
     }
 
     public List<Rent> getRequestedRents() {
         System.out.println("requested rents-----");
-        requestedRentList = this.rentFacade.findRequestedRent();
-        return requestedRentList;
+        return this.rentalEJB.findRequestedRent();
     }
 
     public void approveRequestedRent(Rent rent) {
@@ -235,27 +211,29 @@ public class RentalBean implements Serializable {
         rent.setReservationCode(reservationCode);
         rent.setRentStatus("accepted");
         rent.getCar().setStatus("rented");
-        carFacade.updateCar(rent.getCar());
-//        rent.setAdmin(null);
-        this.rentFacade.approveRent(rent);
-        sendEmail(reservationCode, rent, "Rent Acceptance Confirmation", "confirmed");
+        this.carEJB.updateCar(rent.getCar());
+        //carFacade.updateCar(rent.getCar());
+        //rent.setAdmin(null);
+        this.rentalEJB.updateRent(rent);
+        //sendEmail(reservationCode, rent, "Rent Acceptance Confirmation", "confirmed");
     }
-
+    
     public void disapproveRequestedRent(Rent rent) {
-        rent.setRentStatus("available");
-        rent.getCar().setStatus("cancel");
-        carFacade.updateCar(rent.getCar());
+        rent.setRentStatus("cancel");
+        rent.getCar().setStatus("available");
+        this.carEJB.updateCar(rent.getCar());
 //       rent.setAdmin(null);
-        this.rentFacade.disapproveRent(rent);
-        sendEmail(null, rent, "Rent Cancel Confirmation", "cancelled");
+        this.rentalEJB.updateRent(rent);
+        //sendEmail(null, rent, "Rent Cancel Confirmation", "cancelled");
     }
-
+    
     public String getRequestedRentInformation(Rent rent) {
         this.rent = rent;
         return "viewRentInformation?faces-redirect=true";
     }
-
-    public void sendEmail(String reservationCode, Rent rent, String emailSubject, String status) {
+    
+    //this has to be transfered to the SendTLSMail EJB ******Komal
+    /*public void sendEmail(String reservationCode, Rent rent, String emailSubject, String status) {
         final String fromEmail = "ea.rentalcar@gmail.com"; //requires valid gmail id
         final String password = "Eaproject!"; // correct password for gmail id
         final String toEmail = rent.getCustomer().getEmailAddress(); // can be any email id 
@@ -310,6 +288,5 @@ public class RentalBean implements Serializable {
             throw new RuntimeException(mex);
         }
 
-    }
-
+    }*/
 }

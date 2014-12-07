@@ -9,6 +9,7 @@ import edu.utopia.entities.Rent;
 import edu.utopia.facades.RentFacade;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.constraints.NotNull;
@@ -44,5 +45,16 @@ public class RentalEJB {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
         String formatedDate = sdf.format(dt);
         return formatedDate;
+    }
+    
+    public List findRequestedRent()
+    {
+        return this.rentFacade.findRequestedRents();
+    }
+    
+    public @NotNull Rent updateRent(@NotNull Rent rent)
+    {
+        this.rentFacade.edit(rent);
+        return rent;
     }
 }
