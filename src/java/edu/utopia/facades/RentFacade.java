@@ -32,8 +32,7 @@ public class RentFacade extends AbstractFacade<Rent> {
     }
 
     public List<Rent> findRequestedRents() {
-        Query query = em.createQuery("From Rent r WHERE r.rentStatus='request'");
-        System.out.println("here is " + query);
+        Query query = em.createQuery("From Rent r WHERE r.rentStatus='requested'");
         return query.getResultList();
     }
 }
