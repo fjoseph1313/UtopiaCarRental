@@ -57,4 +57,8 @@ public class RentalEJB {
         this.rentFacade.edit(rent);
         return rent;
     }
+    
+    public Rent findRentByReservationCode(String reservationCode){
+        return this.rentFacade.findRentByReservationCode(reservationCode);
+    }
 }

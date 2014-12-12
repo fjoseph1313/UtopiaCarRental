@@ -35,4 +35,9 @@ public class RentFacade extends AbstractFacade<Rent> {
         Query query = em.createQuery("From Rent r WHERE r.rentStatus='requested'");
         return query.getResultList();
     }
+     public Rent findRentByReservationCode(String reservationCode) {
+        Query query = em.createQuery("From Rent r WHERE r.reservationCode=:reservationCode");
+        query.setParameter("reservationCode", reservationCode);
+        return (Rent)query.getSingleResult();
+    }
 }

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Reciept</title>
+    </h:head>
+    <h:body>
+         <p><H1>UTOPIA CAR RENTAL</H1></p><br />
+        <p><h:link outcome="index" value="HOME" /></p>
+        <h2> CUSTOMER REGISTRATION </h2>
+        <h:outputLabel value="CUSTOMER REGISTRATION FORM"/><br /><br />
+        <h:form>
+            <h:panelGrid columns="3" border="0">
+                <h:outputLabel value ="Drop Off Date : #{ReturnCarBean.actualDropOffDate}" /><br />
+                <h:outputLabel value="Charge : #{ReturnCarBean.charge}"/><br />
+                <h:outputLabel value ="Extra Charge : #{ReturnCarBean.extraCharge}"/><br />
+                <h:outputLabel value ="Total Charge : #{ReturnCarBean.totalCharge}"/><br />
+                  <f:facet name="footer">
+                    <h:panelGroup style="display:block; text-align:center">
+                        <h:commandButton action="#{ReturnCarBean.payment}" value="Proceed Payment"/>
+                    </h:panelGroup>
+                </f:facet>
+                 
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
