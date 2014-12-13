@@ -17,13 +17,17 @@ import javax.validation.constraints.NotNull;
  */
 @Stateless
 public class AdminEJB {
+
     @EJB
     private AdminFacade adminFacade;
-    
-    public @NotNull Admin createAdmin(@NotNull Admin admin)
-    {
+
+    public @NotNull
+    Admin createAdmin(@NotNull Admin admin) {
         this.adminFacade.create(admin);
         return admin;
     }
 
+    public Admin findAdmin(String admin) {
+        return this.adminFacade.findAdminByUserName(admin);
+    }
 }

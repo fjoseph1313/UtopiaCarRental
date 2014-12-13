@@ -6,7 +6,7 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Admin;
-import edu.utopia.facades.AdminFacade;
+import static edu.utopia.entities.EncryptPassword.getEncryptedPassword;
 import edu.utopia.model.AdminEJB;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -18,14 +18,13 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "AdminBean")
 @RequestScoped
-public class AdminBean
-{
+public class AdminBean {
+
     @EJB
     private AdminEJB adminEJB;
     private Admin admin;
-    
-    public AdminBean()
-    {
+
+    public AdminBean() {
         this.admin = new Admin();
     }
 
@@ -36,15 +35,18 @@ public class AdminBean
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
-    
-    public String registerAdmin()
-    {
+
+    public String registerAdmin() {
         //admin.setUserName(admin.getEmailAddress()); //assign username as email address but optional
-        if(admin.getUserName().equals(""))
-        {
+        if (admin.getUserName().equals("")) {
             admin.setUserName(admin.getEmailAddress());
         }
+        admin.setPassword(getEncryptedPassword(admin.getPassword()));
         Admin addedAdmin = this.adminEJB.createAdmin(admin);
         return "registerEmployee";
+    }
+
+    public Admin searchAdminByUserName(String admin) {
+        return this.adminEJB.findAdmin(admin);
     }
 }

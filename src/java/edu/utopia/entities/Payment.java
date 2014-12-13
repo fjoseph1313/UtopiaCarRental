@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Payment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,10 +33,10 @@ public class Payment implements Serializable {
     private Date paymentDate;
     private String paymentDescription;
     @ManyToOne
-    @JoinColumn(name="rent_id")
+    @JoinColumn(name = "rent_id")
     private Rent rent;
     @ManyToOne
-    @JoinColumn(name="admin_id")
+    @JoinColumn(name = "admin_id")
     private Admin admin;
 
     public Long getId() {
@@ -93,10 +94,7 @@ public class Payment implements Serializable {
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
-    
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -121,5 +119,5 @@ public class Payment implements Serializable {
     public String toString() {
         return "edu.utopia.entities.Payment[ id=" + id + " ]";
     }
-    
+
 }

@@ -19,8 +19,7 @@ import javax.inject.Named;
  */
 @Named(value = "CategoryBean")
 @RequestScoped
-public class CategoryBean implements Serializable
-{
+public class CategoryBean implements Serializable {
 
     @EJB
     private CategoryEJB catEjb;
@@ -54,9 +53,6 @@ public class CategoryBean implements Serializable
     public void setCatSize(int catSize) {
         this.catSize = catSize;
     }
-    
-    
-    
 
     //method to create categories..
     public String postCategory() {
@@ -68,13 +64,12 @@ public class CategoryBean implements Serializable
     }
 
     public List<Category> getCategories() {
-        catSize = (int)this.catEjb.findAllCategories().size();
-        System.out.println("size of the category list is ........ "+catSize);
+        catSize = (int) this.catEjb.findAllCategories().size();
+        System.out.println("size of the category list is ........ " + catSize);
         return this.catEjb.findAllCategories();
     }
-   
-    public String deleteAction(Category cat)
-    {
+
+    public String deleteAction(Category cat) {
         this.catEjb.deleteCategory(cat);
         return null;
     }

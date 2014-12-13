@@ -12,16 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-//import sun.security.util.Password;
 
 /**
  *
  * @author DiRauniyar
  */
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class Person implements Serializable 
-{
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,11 +34,12 @@ public class Person implements Serializable
     private String zipCode;
     private String emailAddress;
     private String userName;
-    //private Password password;
-    
-    public Person(){}
-    public Person(Long id, String firstname, String lastname, String phoneNumber, String street, String city, String state, String zipCode, String emailaddress, String username) 
-    {
+    private String password;
+
+    public Person() {
+    }
+
+    public Person(Long id, String firstname, String lastname, String phoneNumber, String street, String city, String state, String zipCode, String emailaddress, String username, String password) {
         this.id = id;
         this.firstName = firstname;
         this.lastName = lastname;
@@ -50,8 +50,9 @@ public class Person implements Serializable
         this.zipCode = zipCode;
         this.emailAddress = emailaddress;
         this.userName = username;
+        this.password = password;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -125,23 +126,23 @@ public class Person implements Serializable
     }
 
     public String getUserName() {
+        System.out.println("get user name is " + userName);
         return userName;
     }
 
     public void setUserName(String username) {
+        System.out.println("user name is" + username);
         this.userName = username;
     }
 
-    /*public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Password password) {
+    public void setPassword(String password) {
         this.password = password;
-    }*/
-    
-    
-    
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -166,5 +167,5 @@ public class Person implements Serializable
     public String toString() {
         return "edu.utopia.entities.Person[ id=" + id + " ]";
     }
-    
+
 }

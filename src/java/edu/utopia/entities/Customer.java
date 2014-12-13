@@ -16,17 +16,16 @@ import javax.persistence.OneToMany;
  * @author DiRauniyar
  */
 @Entity
-public class Customer extends Person 
-{
-    
-    @OneToMany(mappedBy="customer", targetEntity=Rent.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+public class Customer extends Person {
+
+    @OneToMany(mappedBy = "customer", targetEntity = Rent.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Rent> custRentList;
-    
-       
-    public Customer(){}
-    public Customer(Long id, String f, String l, String p, String st, String c, String sta, String z, String e, String u) 
-    {
-        super(id, f, l, p, st, c, sta, z, e, u);
+
+    public Customer() {
+    }
+
+    public Customer(Long id, String f, String l, String p, String st, String c, String sta, String z, String e, String u, String pass) {
+        super(id, f, l, p, st, c, sta, z, e, u, pass);
     }
 
     public List<Rent> getCustRentList() {
@@ -37,6 +36,4 @@ public class Customer extends Person
         this.custRentList = custRentList;
     }
 
-    
-    
 }

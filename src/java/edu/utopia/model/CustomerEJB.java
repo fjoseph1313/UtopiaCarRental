@@ -17,13 +17,17 @@ import javax.validation.constraints.NotNull;
  */
 @Stateless
 public class CustomerEJB {
+
     @EJB
     private CustomerFacade customerFacade;
-    
-    public @NotNull Customer createCustomer(@NotNull Customer customer)
-    {
+
+    public @NotNull
+    Customer createCustomer(@NotNull Customer customer) {
         this.customerFacade.create(customer);
         return customer;
     }
 
+    public Customer findCustomer(String customer) {
+        return this.customerFacade.findCustomerByUserName(customer);
+    }
 }

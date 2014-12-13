@@ -6,7 +6,7 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Customer;
-import edu.utopia.facades.CustomerFacade;
+import static edu.utopia.entities.EncryptPassword.getEncryptedPassword;
 import edu.utopia.model.CustomerEJB;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -18,15 +18,13 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "CustomerBean")
 @RequestScoped
-public class CustomerBean
-{
+public class CustomerBean {
+
     @EJB
     private CustomerEJB customerEJB;
     private Customer customer;
-    
-    
-    public CustomerBean()
-    {
+
+    public CustomerBean() {
         this.customer = new Customer();
     }
 
@@ -37,11 +35,15 @@ public class CustomerBean
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
-    public String registerCustomer()
-    {
+
+    public String registerCustomer() {
         customer.setUserName(customer.getEmailAddress()); //assign username as email address
+        customer.setPassword(getEncryptedPassword(customer.getPassword()));
         Customer addedCustomer = this.customerEJB.createCustomer(customer); //do manipulation with addedCustomer
         return "registerCustomer";
+    }
+
+    public Customer searchCustomerByUserName(String customer) {
+        return this.customerEJB.findCustomer(customer);
     }
 }

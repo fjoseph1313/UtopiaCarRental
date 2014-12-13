@@ -39,6 +39,12 @@
                              requiredMessage="**Email Required!"/>
                 <h:message class="error" for="aemail"/>
 
+                <h:outputLabel value="Password :"/>
+                <h:inputText value="#{AdminBean.admin.password}" id="pass"
+                             required="true"
+                             requiredMessage="**Password Required!"/>
+                <h:message class="error" for="pass"/>
+
                 <h:outputLabel value="Street :"/>
                 <h:inputText value="#{AdminBean.admin.street}"
                              required="true"
@@ -52,25 +58,25 @@
                              requiredMessage="**City Required!"
                              id="act"/>
                 <h:message class="error" for="act"/>
-                
+
                 <h:outputLabel value="State :"/>
                 <h:inputText value="#{AdminBean.admin.state}"
                              required="true"
                              requiredMessage="**State Required!"
                              id="asta"/>
                 <h:message class="error" for="asta"/>
-                
+
                 <h:outputLabel value="Zip Code :"/>
                 <h:inputText value="#{AdminBean.admin.zipCode}"
                              required="true"
                              requiredMessage="**ZipCode Needed!"
                              id="azip"/>
                 <h:message class="error" for="azip"/>
-                
+
                 <h:outputLabel value="Employee UserName :"/>
                 <h:inputText value="#{AdminBean.admin.userName}"/>
                 <h:message class="error" for=""/>
-                
+
                 <f:facet name="footer">
                     <h:panelGroup style="display:block; text-align:center">
                         <h:commandButton action="#{AdminBean.registerAdmin}" value="Register Employee"/>

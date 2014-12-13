@@ -9,6 +9,7 @@ import edu.utopia.entities.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class CustomerFacade extends AbstractFacade<Customer> {
+
     @PersistenceContext(unitName = "UtopiaCarRentalPU")
     private EntityManager em;
 
@@ -27,5 +29,11 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     public CustomerFacade() {
         super(Customer.class);
     }
-    
+
+    public Customer findCustomerByUserName(String customer) {
+        Query query = em.createQuery("From Person r WHERE r.userName=:customer");
+        query.setParameter("customer", customer);
+        return (Customer) query.getSingleResult();
+    }
+
 }

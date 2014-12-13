@@ -5,7 +5,6 @@
  */
 package edu.utopia.entities;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,17 +16,18 @@ import javax.persistence.OneToMany;
  * @author fjoseph1313
  */
 @Entity
-public class Admin extends Person 
-{
-    @OneToMany(mappedBy="admin", targetEntity=Rent.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+public class Admin extends Person {
+
+    @OneToMany(mappedBy = "admin", targetEntity = Rent.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Rent> adminRentList;
-    @OneToMany(mappedBy="admin", targetEntity=Payment.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "admin", targetEntity = Payment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Payment> adminPayments;
-    
-    public Admin(){}
-    public Admin(Long id, String f, String l, String p, String st, String c, String sta, String z, String e, String u) 
-    {
-        super(id, f, l, p, st, c, sta, z, e, u);
+
+    public Admin() {
+    }
+
+    public Admin(Long id, String f, String l, String p, String st, String c, String sta, String z, String e, String u, String pass) {
+        super(id, f, l, p, st, c, sta, z, e, u, pass);
     }
 
     public List<Rent> getAdminRentList() {
@@ -45,6 +45,5 @@ public class Admin extends Person
     public void setAdminPayments(List<Payment> adminPayments) {
         this.adminPayments = adminPayments;
     }
-    
-    
+
 }

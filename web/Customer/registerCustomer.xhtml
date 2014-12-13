@@ -39,6 +39,14 @@
                              requiredMessage="**Email Required!"/>
                 <h:message class="error" for="email"/>
 
+
+                <h:outputLabel value="Password :"/>
+                <h:inputText value="#{CustomerBean.customer.password}" id="pass"
+                             required="true"
+                             requiredMessage="**Password Required!"/>
+                <h:message class="error" for="pass"/>
+
+
                 <h:outputLabel value="Street :"/>
                 <h:inputText value="#{CustomerBean.customer.street}"
                              required="true"
@@ -52,21 +60,21 @@
                              requiredMessage="**City Required!"
                              id="ct"/>
                 <h:message class="error" for="ct"/>
-                
+
                 <h:outputLabel value="State :"/>
                 <h:inputText value="#{CustomerBean.customer.state}"
                              required="true"
                              requiredMessage="**State Required!"
                              id="sta"/>
                 <h:message class="error" for="sta"/>
-                
+
                 <h:outputLabel value="Zip Code :"/>
                 <h:inputText value="#{CustomerBean.customer.zipCode}"
                              required="true"
                              requiredMessage="**ZipCode Needed!"
                              id="zip"/>
                 <h:message class="error" for="zip"/>
-                
+
                 <f:facet name="footer">
                     <h:panelGroup style="display:block; text-align:center">
                         <h:commandButton action="#{CustomerBean.registerCustomer}" value="Register Customer"/>

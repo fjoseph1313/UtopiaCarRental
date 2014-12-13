@@ -7,7 +7,6 @@ package edu.utopia.beans;
 
 import edu.utopia.entities.Location;
 import edu.utopia.facades.LocationFacade;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -20,6 +19,7 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "LocationBean")
 @RequestScoped
 public class LocationBean {
+
     @EJB
     private LocationFacade locationFacade;
     private Location location;
@@ -31,11 +31,10 @@ public class LocationBean {
 //         
 //        return results;
 //    }
-    
+
     public List<Location> getLocationList() {
-       return this.locationFacade.findAll();
+        return this.locationFacade.findAll();
     }
-    
 
     public Location getLocation() {
         return location;
@@ -48,15 +47,12 @@ public class LocationBean {
     public LocationBean() {
         this.location = new Location();
     }
-    
-    public String addLocation()
-    {
-       // location.setLocationName(location.getLocationName());
+
+    public String addLocation() {
+        // location.setLocationName(location.getLocationName());
         this.locationFacade.create(location);
-        
+
         return "addLocation";
     }
-    
-   
-    
+
 }

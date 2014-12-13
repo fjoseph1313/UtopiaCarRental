@@ -9,6 +9,7 @@ import edu.utopia.entities.Admin;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class AdminFacade extends AbstractFacade<Admin> {
+
     @PersistenceContext(unitName = "UtopiaCarRentalPU")
     private EntityManager em;
 
@@ -27,5 +29,10 @@ public class AdminFacade extends AbstractFacade<Admin> {
     public AdminFacade() {
         super(Admin.class);
     }
-    
+
+    public Admin findAdminByUserName(String admin) {
+        Query query = em.createQuery("From Person r WHERE r.userName=:admin");
+        query.setParameter("admin", admin);
+        return (Admin) query.getSingleResult();
+    }
 }

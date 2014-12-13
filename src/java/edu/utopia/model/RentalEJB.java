@@ -37,28 +37,28 @@ public class RentalEJB {
         long diffMinutes = diff / (60 * 1000) % 60;
         long diffHours = diff / (60 * 60 * 1000) % 24;
         long diffDays = diff / (24 * 60 * 60 * 1000);
-        
+
         return diffDays;
     }
-    public String dateParser(Date dt)
-    {
+
+    public String dateParser(Date dt) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
         String formatedDate = sdf.format(dt);
         return formatedDate;
     }
-    
-    public List findRequestedRent()
-    {
+
+    public List findRequestedRent() {
         return this.rentFacade.findRequestedRents();
     }
-    
-    public @NotNull Rent updateRent(@NotNull Rent rent)
-    {
+
+    public @NotNull
+    Rent updateRent(@NotNull Rent rent) {
         this.rentFacade.edit(rent);
         return rent;
     }
-    
-    public Rent findRentByReservationCode(String reservationCode){
+
+    public Rent findRentByReservationCode(String reservationCode) {
         return this.rentFacade.findRentByReservationCode(reservationCode);
     }
+
 }

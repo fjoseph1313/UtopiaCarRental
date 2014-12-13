@@ -8,7 +8,6 @@ package edu.utopia.beans;
 import edu.utopia.entities.Car;
 import edu.utopia.entities.Category;
 import edu.utopia.facades.CarFacade;
-import edu.utopia.facades.CategoryFacade;
 import edu.utopia.model.CarEJB;
 import edu.utopia.model.CategoryEJB;
 import java.util.List;
@@ -22,24 +21,22 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "CarBean")
 @RequestScoped
-public class CarBean 
-{
+public class CarBean {
+
     @EJB
     private CarFacade carFacade;
     @EJB
     private CarEJB carEJB;
     @EJB
     private CategoryEJB categoryEJB;
-    
-    
+
     private Car car;
     private Long catId;
-    
-    public CarBean()
-    {
+
+    public CarBean() {
         this.car = new Car();
     }
-    
+
     public Car getCar() {
         return car;
     }
@@ -55,30 +52,24 @@ public class CarBean
     public void setCatId(Long catId) {
         this.catId = catId;
     }
-    
-    
-    public String registerCar()
-    {
+
+    public String registerCar() {
         //before persiting car entity, fetch its category from a selected category.
-        Category cat = (Category)this.categoryEJB.findById(catId);
+        Category cat = (Category) this.categoryEJB.findById(catId);
         car.setCategory(cat);
         car.setStatus("available");
         this.carEJB.createCar(car);//persisting a car entity and empty the form
         return "addCar";
     }
-    
-    public List<Car> getCarList()
-    {
+
+    public List<Car> getCarList() {
         //return this.carEJB.findAllCars(); //from ejb's facade
         return this.carEJB.findCars(); //from ejb's named query
     }
- 
-     public void updateCar(Car car)
-   {
-       this.car.setStatus(car.getStatus());
-//       rent.setAdmin(null);
-       this.carFacade.updateCar(car);
-   }
-    
-    
+
+    public void updateCar(Car car) {
+        this.car.setStatus(car.getStatus());
+        this.carFacade.updateCar(car);
+    }
+
 }

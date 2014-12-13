@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class LocationFacade extends AbstractFacade<Location> {
+
     @PersistenceContext(unitName = "UtopiaCarRentalPU")
     private EntityManager em;
 
@@ -27,5 +28,5 @@ public class LocationFacade extends AbstractFacade<Location> {
     public LocationFacade() {
         super(Location.class);
     }
-    
+
 }

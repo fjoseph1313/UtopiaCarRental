@@ -12,10 +12,10 @@
         <h2> Location REGISTRATION </h2>
         <h:outputLabel value="Location REGISTRATION FORM"/><br /><br />
         <h:form>
-             <h:panelGrid columns="3" border="0" bgcolor="skyblue">
+            <h:panelGrid columns="3" border="0" bgcolor="skyblue">
 
                 <h:outputLabel value="Location Address :"/>
-                <h:inputText value="#{LocationBean.location.locationName}" 
+                <h:inputText value="#{LocationBean.location.location}" 
                              required="true"
                              requiredMessage="**Address Required!"
                              id="carMod"/>
@@ -25,23 +25,23 @@
                         <h:commandButton action="#{LocationBean.addLocation}" value="Add Location"/>
                     </h:panelGroup>
                 </f:facet>
-             </h:panelGrid>
-             
+            </h:panelGrid>
+
         </h:form>
 
         <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
-        <h:dataTable var="location" value="#{LocationBean.location}"
-                         columnClasses="oddColumn, evenColumn"
-                         rowClasses="categoryOddRow,categoryEvenRow">
+        <h:dataTable var="location" value="#{LocationBean.locationList}"
+                     columnClasses="oddColumn, evenColumn"
+                     rowClasses="categoryOddRow,categoryEvenRow">
             <h:column headerClass="columnHeader" >
-                    <f:facet name="header" >LOCATION ID</f:facet>
+                <f:facet name="header" >LOCATION ID</f:facet>
                     #{location.id}
-                </h:column>  
-                <h:column headerClass="columnHeader" >
-                    <f:facet name="header" >LOCATION NAME</f:facet>
-                    #{location.locationName}
-                </h:column>             
-            </h:dataTable>
+            </h:column>  
+            <h:column headerClass="columnHeader" >
+                <f:facet name="header" >LOCATION NAME</f:facet>
+                    #{location.location}
+            </h:column>             
+        </h:dataTable>
     </h:body>
 </html>
 

@@ -25,9 +25,9 @@ import javax.persistence.Transient;
  * @author kashraf
  */
 @Entity
-@NamedQuery(name = FIND_ALL, query="SELECT c FROM Car c")
-public class Car implements Serializable 
-{
+@NamedQuery(name = FIND_ALL, query = "SELECT c FROM Car c")
+public class Car implements Serializable {
+
     private static final long serialVersionUID = 1L;
     public static final String FIND_ALL = "Car.findAllCars";
     @Id
@@ -43,12 +43,13 @@ public class Car implements Serializable
     private String location;
     private double pricePerHour;
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
-    @OneToMany(mappedBy="car", targetEntity=Rent.class, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "car", targetEntity = Rent.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Rent> carRentList;
-    
-    public Car(){}
+
+    public Car() {
+    }
 
     public Long getId() {
         return id;
@@ -137,9 +138,7 @@ public class Car implements Serializable
     public void setCarRent(List<Rent> carRent) {
         this.carRentList = carRent;
     }
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -164,5 +163,5 @@ public class Car implements Serializable
     public String toString() {
         return "edu.utopia.entities.Car[ id=" + id + " ]";
     }
-    
+
 }

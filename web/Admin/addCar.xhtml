@@ -8,11 +8,18 @@
         <h:outputStylesheet library="css" name="utopia.css" />
     </h:head>
     <h:body>
+
+        <h:form>
+            <h:commandButton action="#{logOutBean.logout}" value="Logout" />
+        </h:form>
+
         <p><H1>UTOPIA CAR RENTAL</H1></p><br />
         <p><h:link outcome="index" value="HOME" /></p>
         <h2> CARS REGISTRATION </h2>
         <h:outputLabel value="CAR REGISTRATION FORM"/><br /><br />
         <h:form styleClass="jsfcrud_list_form">
+
+
             <h:panelGrid columns="3" border="0" bgcolor="skyblue">
 
                 <h:outputLabel value="Car Model :"/>
@@ -43,8 +50,11 @@
                 <h:message class="error" for="seat"/>
 
                 <h:outputLabel value="Location :"/>
-                <h:inputText value="#{CarBean.car.location}"/>
-                <h:message class="error" for=""/>
+                <h:selectOneMenu value="#{CarBean.car.location}">
+                    <f:selectItems value="#{LocationBean.locationList}" 
+                                   var ="location" itemValue="#{location.id}"
+                                   itemLabel="#{location.location}" /> 
+                </h:selectOneMenu><br />
 
                 <h:outputLabel value="Price Per Hour :$"/>
                 <h:inputText value="#{CarBean.car.pricePerHour}"/>
@@ -62,8 +72,10 @@
                     <h:panelGroup style="display:block; text-align:center">
                         <h:commandButton action="#{CarBean.registerCar}" value="Register Car"/>
                     </h:panelGroup>
-                </f:facet>
+                </f:facet>        
             </h:panelGrid>
+
+
         </h:form>
         <hr />
         <h2>UTOPIA's REGISTERED CARS</h2>
@@ -73,7 +85,7 @@
                      headerClass="columnHeader">
             <h:column >
                 <f:facet name="header" >MODEL</f:facet>
-                    #{car.carModel} - #{car.noOfSeats}Seats.
+                #{car.carModel} - #{car.noOfSeats}Seats.
             </h:column>
             <h:column>
                 <f:facet name="header" >CONDITION</f:facet>
@@ -93,13 +105,16 @@
             </h:column>
             <h:column>
                 <f:facet name="header" >PRICE(PHR)</f:facet>
-                    $#{car.pricePerHour}
+                $#{car.pricePerHour}
             </h:column>
             <h:column>
                 <f:facet name="header" >LOCATION</f:facet>
                     #{car.location}
             </h:column>
         </h:dataTable>
+
+
+
     </h:body>
 </html>
 

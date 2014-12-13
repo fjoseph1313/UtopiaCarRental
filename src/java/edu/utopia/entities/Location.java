@@ -23,17 +23,17 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String locationName;
+    private String location;
 
     public Location() {
     }
 
-    public String getLocationName() {
-        return locationName;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Long getId() {

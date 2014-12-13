@@ -18,19 +18,19 @@
                 <h:outputLabel value="PickUp Location :"/>
                 <h:selectOneMenu value="#{RentalBean.pLocale}">
                     <f:selectItems value="#{LocationBean.locationList}" 
-                                   var ="location" itemValue="#{location.id}"
-                                   itemLabel="#{location.locationName}" />
+                                   var ="location" itemValue="#{location.location}"
+                                   itemLabel="#{location.location}" />
                 </h:selectOneMenu>
 
                 <h:outputLabel value="PickUp Date :"/>
                 <p:calendar value="#{RentalBean.pDate}" navigator="true" pattern="yyyy-MM-dd" />
                 <h:message class="error" for=""/>
 
-              <h:outputLabel value="DropOff Location :"/>
-               <h:selectOneMenu value="#{RentalBean.dLocale}">
+                <h:outputLabel value="DropOff Location :"/>
+                <h:selectOneMenu value="#{RentalBean.dLocale}">
                     <f:selectItems value="#{LocationBean.locationList}" 
-                                   var ="location" itemValue="#{location.id}"
-                                   itemLabel="#{location.locationName}" />
+                                   var ="location" itemValue="#{location.location}"
+                                   itemLabel="#{location.location}" />
                 </h:selectOneMenu>
 
                 <h:outputLabel value="DropOff Date :" class="datepicker"/>

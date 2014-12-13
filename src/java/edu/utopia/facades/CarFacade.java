@@ -44,11 +44,12 @@ public class CarFacade extends AbstractFacade<Car> {
         edit(car);
         return car;
     }
+
     //this method uses entity's named query to find all
-    public List<Car> findCarsByNamedQuery()
-    {
+
+    public List<Car> findCarsByNamedQuery() {
         TypedQuery query = em.createNamedQuery(FIND_ALL, Car.class);
         return query.getResultList();
     }
-    
+
 }

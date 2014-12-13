@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  *
  * @author DiRauniyar
@@ -51,7 +50,7 @@ public class Rent implements Serializable {
     @JoinColumn(name = "admin_id")
     private Admin admin;
     private String rentStatus;
-    @OneToMany(mappedBy="rent", targetEntity=Payment.class, cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "rent", targetEntity = Payment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Payment> payments;
 
     public Long getId() {

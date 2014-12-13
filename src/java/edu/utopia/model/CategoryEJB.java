@@ -17,33 +17,30 @@ import javax.validation.constraints.NotNull;
  * @author fjoseph1313
  */
 @Stateless
-public class CategoryEJB 
-{
+public class CategoryEJB {
+
     @EJB
     private CategoryFacade categoryFacade;
-    
-    public @NotNull Category createCategory(@NotNull Category category)
-    {
+
+    public @NotNull
+    Category createCategory(@NotNull Category category) {
         this.categoryFacade.create(category);
         return category;
     }
-    
-    public Category findById(@NotNull Long id)
-    {
+
+    public Category findById(@NotNull Long id) {
         return this.categoryFacade.find(id);
     }
-    
-    public List<Category> findAllCategories()
-    {
+
+    public List<Category> findAllCategories() {
         return this.categoryFacade.findAll();
     }
-    
-    public void updateCategory(@NotNull Category category)
-    {
+
+    public void updateCategory(@NotNull Category category) {
         this.categoryFacade.edit(category);
     }
-    public void deleteCategory(@NotNull Category category)
-    {
+
+    public void deleteCategory(@NotNull Category category) {
         this.categoryFacade.remove(category);
     }
 }

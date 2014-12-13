@@ -22,6 +22,7 @@ import javax.enterprise.context.SessionScoped;
 @Named(value = "ReturnCarBean")
 @SessionScoped
 public class ReturnCarBean implements Serializable {
+
     @EJB
     private CarEJB carEJB;
     private Date actualDropOffDate;
@@ -34,9 +35,7 @@ public class ReturnCarBean implements Serializable {
     private int size;
     private String reservationCode;
     private Rent rentDetail;
-   
-    
-    
+
     @EJB
     private RentalEJB rentalEJB;
 
@@ -80,8 +79,6 @@ public class ReturnCarBean implements Serializable {
         this.totalDays = totalDays;
     }
 
-   
-
     public String getUpdatedCarCondition() {
         return updatedCarCondition;
     }
@@ -105,8 +102,6 @@ public class ReturnCarBean implements Serializable {
     public void setActualDropOffDate(Date actualDropOffDate) {
         this.actualDropOffDate = actualDropOffDate;
     }
-
-    
 
     public String getReservationCode() {
         return reservationCode;
@@ -132,7 +127,7 @@ public class ReturnCarBean implements Serializable {
 
     public String searchReservation() {
         rentDetail = this.rentalEJB.findRentByReservationCode(reservationCode);
-        if(rentDetail == null) {
+        if (rentDetail == null) {
             this.size = 0;
         } else {
             this.size = 1;
@@ -143,23 +138,22 @@ public class ReturnCarBean implements Serializable {
     public String updateReturnCar() {
         System.out.println("Car Condition" + this.updatedCarCondition);
         System.out.println("Actual Drop off Date :" + this.actualDropOffDate);
-                
-       
+
         Car thisCar = rentDetail.getCar();
         thisCar.setCarCondition(this.updatedCarCondition);
-         //change the status of the car to available 
+        //change the status of the car to available 
         thisCar.setStatus("Available");
         this.carEJB.updateCar(thisCar);
         if (this.actualDropOffDate == null) {
-             System.out.println("Actual return date" + this.actualDropOffDate);
+            System.out.println("Actual return date" + this.actualDropOffDate);
             this.actualDropOffDate = this.rentDetail.getDropOffDate();
-        } 
+        }
         Date expectedReturnDate = this.rentDetail.getDropOffDate();
-        
+
         //getting date difference
         long diff = this.actualDropOffDate.getTime() - expectedReturnDate.getTime();
         this.extraCharge = diff / (24 * 60 * 60 * 1000) * rentDetail.getCar().getPricePerHour();
-        
+
         //initially booked days
         long d = this.rentDetail.getDropOffDate().getTime() - rentDetail.getPickUpDate().getTime();
         int bookedDays = (int) d / (24 * 60 * 60 * 1000);
@@ -170,12 +164,10 @@ public class ReturnCarBean implements Serializable {
         this.charge = bookedDays * (rentDetail.getCar().getPricePerHour());
         this.totalCharge = this.extraCharge + this.charge;
 
-       
         this.rentDetail.setDropOffDate(actualDropOffDate);
         this.rentalEJB.updateRent(rentDetail);
-        //update the retuen date
-        
-        
+        //update the return date
+
         return "reciept";
 
     }
