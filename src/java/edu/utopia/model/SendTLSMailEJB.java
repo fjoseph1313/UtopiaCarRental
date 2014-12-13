@@ -8,6 +8,7 @@ package edu.utopia.model;
 import edu.utopia.entities.Rent;
 import java.util.Date;
 import java.util.Properties;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -24,6 +25,7 @@ import javax.mail.internet.MimeMessage;
 @Stateless
 public class SendTLSMailEJB {
 
+    @Asynchronous
     public void applicationEmail(String toEmail, String customerName, String car, Long rentDuration, Long amt) {
         final String username = "sharemum@gmail.com";
         final String password = "sharemum@gmail";
@@ -71,6 +73,7 @@ public class SendTLSMailEJB {
     }
 
     //both rent accepted and rent rejected email will be sent by using this function.
+    @Asynchronous
     public void sendRentEmail(String reservationCode, Rent rent, String emailSubject, String status) {
         final String fromEmail = "ea.rentalcar@gmail.com"; //requires valid gmail id
         final String password = "Eaproject!"; // correct password for gmail id

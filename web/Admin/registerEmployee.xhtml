@@ -31,13 +31,16 @@
 
                 <h:outputLabel value="Phone Number :"/>
                 <h:inputText value="#{AdminBean.admin.phoneNumber}" />
-                <h:message class="error" for=""/>                
+                    <h:message class="error" for=""/>              
 
                 <h:outputLabel value="Email Address :"/>
                 <h:inputText value="#{AdminBean.admin.emailAddress}" id="aemail"
                              required="true"
-                             requiredMessage="**Email Required!"/>
+                             requiredMessage="**Email Required!">
+                    <f:ajax event="blur" execute="aemail" render="emailError" />
+                </h:inputText>
                 <h:message class="error" for="aemail"/>
+               
 
                 <h:outputLabel value="Password :"/>
                 <h:inputText value="#{AdminBean.admin.password}" id="pass"

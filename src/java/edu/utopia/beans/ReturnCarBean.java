@@ -6,7 +6,10 @@
 package edu.utopia.beans;
 
 import edu.utopia.entities.Car;
+import edu.utopia.entities.Payment;
 import edu.utopia.entities.Rent;
+import edu.utopia.facades.PaymentFacade;
+import edu.utopia.model.AdminEJB;
 import edu.utopia.model.CarEJB;
 import edu.utopia.model.RentalEJB;
 import java.io.Serializable;
@@ -14,6 +17,7 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -22,6 +26,10 @@ import javax.enterprise.context.SessionScoped;
 @Named(value = "ReturnCarBean")
 @SessionScoped
 public class ReturnCarBean implements Serializable {
+    @EJB
+    private AdminEJB adminEJB;
+    @EJB
+    private PaymentFacade paymentFacade;
 
     @EJB
     private CarEJB carEJB;
@@ -35,6 +43,7 @@ public class ReturnCarBean implements Serializable {
     private int size;
     private String reservationCode;
     private Rent rentDetail;
+    private Payment payment;
 
     @EJB
     private RentalEJB rentalEJB;
@@ -115,6 +124,7 @@ public class ReturnCarBean implements Serializable {
      * Creates a new instance of ReturnCarBean
      */
     public ReturnCarBean() {
+        this.payment = new Payment();
     }
 
     public Rent getRentDetail() {
@@ -170,6 +180,23 @@ public class ReturnCarBean implements Serializable {
 
         return "reciept";
 
+    }
+
+    public String makePayment() {
+        System.out.println("total charge" + this.totalCharge);
+        this.payment.setAmount(this.totalCharge);
+        Date date = new Date();
+        this.payment.setPaymentDate(date);
+        if (this.extraCharge != 0) {
+            this.payment.setPaymentType("extra");
+        } else {
+            this.payment.setPaymentType("normal");
+        }
+        this.payment.setRent(this.rentDetail);
+//        newRent.setCustomer(this.customerEJB.findCustomer(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())); //this mus be the logged in customer!
+        this.payment.setAdmin(this.adminEJB.findAdmin(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()));
+        this.paymentFacade.create(payment);
+        return "paymentReceived";
     }
 
 }

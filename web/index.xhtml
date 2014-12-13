@@ -1,22 +1,74 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Utopia Car Rental</title>
+        <h:outputScript library="css" name="templatemo_style.css" />
+        <h:outputScript library="css" name="form.css" />
     </h:head>
     <h:body>
-        <p>THE HOME OF UTOPIA CAR RENTAL</p><br />
-        <h:form>
-            <h:link outcome="/Admin/addCategory" value="Add New Category" /><br />
-            <h:link outcome="/Admin/addCar" value="Add New Car" /><br />
-            <h:link outcome="/Customer/registerCustomer" value="New Customer" /><br />
-            <h:link outcome="/Admin/registerEmployee" value="New Employee" /><br />
-            <h:link outcome="/Customer/applyRent" value="Rent A Car" /><br />
-            <h:link outcome="/Admin/addLocation" value="Add Location" /><br />
-            <h:link outcome="/Admin/viewRent" value="View Requestd Rent" /><br />
-            <h:link outcome="/Customer/returnCar" value="Return A Car" /><br />
-        </h:form>
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+
+            <h:panelGroup id="templatemo_content" layout="block">
+
+                <h:panelGroup class="content_title_01" layout="block">Welcome to UTOPIA RENTAL SERVICE</h:panelGroup>
+                <img src="resources/images/templatemo_image_01.jpg" alt="image 1" />
+                <p> </p>
+                <p> </p>
+
+                <p>Utopia Car Rental provides you to plan your trip. Cheaper, You can pay payment after returning the car.To know more about us...</p>
+                <p>If you have an existing account.Please  <h:link outcome="#" value="Login" /><br /></p>
+                <p> If you area a new User....  <h:link outcome="/Customer/registerCustomer" value="Register" /><br /></p>
+
+                <h:panelGroup layout="block" class="cleaner_h10">&nbsp;</h:panelGroup>
+                <h:panelGroup layout="block" class="horizontal_divider_01">&nbsp;</h:panelGroup>
+                <h:panelGroup layout="block" class="cleaner_h30">&nbsp;</h:panelGroup>
+
+                <h:panelGroup layout="block" class="column_02">
+                    <h:panelGroup layout="block" class="content_title_02">Car News</h:panelGroup>
+                    <h:panelGroup layout="block" class="news_section">
+                        <h:panelGroup layout="block" class="news_title">8 new car added</h:panelGroup>
+                        <p>In Good Condition. 4 seats. ALL are luxurious Car</p>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" class="cleaner_h20">&nbsp;</h:panelGroup>
+
+                    <h:panelGroup layout="block" class="news_section">
+                        <h:panelGroup layout="block" class="news_title">Rate goes down $25</h:panelGroup>
+                        <p>Hurry Up.. Book your trip with Us ... only for $25 per hr </p>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" class="cleaner_h20">&nbsp;</h:panelGroup>
+                    <h:panelGroup layout="block" class="rc_btn_01"><a href="#">Read All</a></h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" class="cleaner_w50">&nbsp;</h:panelGroup>
+
+                <h:panelGroup layout="block" class="column_02">
+                    <h:panelGroup layout="block" class="content_title_02">Login Form</h:panelGroup>                
+                    <!--<ui:include src="login.xhtml"></ui:include>-->
+
+                    <h:form>
+                        <h:commandLink value="Customer Login" action="/Customer/applyRent?faces-redirect=true"/>
+                        <br/>
+                        <h:commandLink value="Admin Login" action="/Admin/index?faces-redirect=true"/>
+                    </h:form>
+                    
+                    <h:panelGroup layout="block" class="cleaner_h20">&nbsp;</h:panelGroup>
+                    <h:panelGroup layout="block" class="rc_btn_01"><a href="#">Read All</a></h:panelGroup>
+                </h:panelGroup>
+
+                <h:panelGroup class="cleaner">&nbsp;</h:panelGroup>
+            </h:panelGroup>>
+            <h:panelGroup layout="block" class="cleaner">&nbsp;</h:panelGroup>
+            <ui:include src="/templates/footer.xhtml"></ui:include>
+
+        </h:panelGroup> <!-- end of content wrapper -->
+
+
     </h:body>
 </html>
 
