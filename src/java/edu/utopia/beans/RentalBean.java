@@ -15,8 +15,10 @@ import edu.utopia.model.RentalEJB;
 import edu.utopia.model.SendTLSMailEJB;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -218,7 +220,8 @@ public class RentalBean implements Serializable {
     }
 
     public void approveRequestedRent(Rent rent) {
-        String reservationCode = UUID.randomUUID().toString();
+//        String reservationCode = UUID.randomUUID().toString();
+        String reservationCode = generateCode(rent.getId());
         rent.setReservationCode(reservationCode);
         rent.setRentStatus("accepted");
         rent.getCar().setStatus("rented");
@@ -226,9 +229,21 @@ public class RentalBean implements Serializable {
         String name = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         System.out.println("user name is " + name);
         rent.setAdmin(this.adminEJB.findAdmin(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()));
-        rent.getAdmin().setUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+//        rent.getAdmin().setUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
         this.rentalEJB.updateRent(rent);
         this.sendMailEJB.sendRentEmail(reservationCode, rent, "Rent Acceptance Confirmation", "confirmed");
+    }
+
+    public String generateCode(Long rendId) {
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+        int CurrentDayOfYear = localCalendar.get(Calendar.DAY_OF_YEAR);
+        int hhh = localCalendar.get(Calendar.HOUR);
+        int xxx = localCalendar.get(Calendar.MINUTE);
+        int year = localCalendar.get(Calendar.YEAR) - 2000;
+        String reservationCode = Integer.toString(year)
+                + Integer.toString(CurrentDayOfYear) + Long.toString(rendId);
+//System.out.println(reservationCode);
+        return reservationCode;
     }
 
     public void disapproveRequestedRent(Rent rent) {

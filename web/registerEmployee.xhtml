@@ -36,9 +36,7 @@
                 <h:outputLabel value="Email Address :"/>
                 <h:inputText value="#{AdminBean.admin.emailAddress}" id="aemail"
                              required="true"
-                             requiredMessage="**Email Required!">
-                    <f:ajax event="blur" execute="aemail" render="emailError" />
-                </h:inputText>
+                             requiredMessage="**Email Required!"/>
                 <h:message class="error" for="aemail"/>
                
 
