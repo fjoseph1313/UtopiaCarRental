@@ -10,12 +10,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author fjoseph1313
  */
 @Entity
+@XmlRootElement
 public class Admin extends Person {
 
     @OneToMany(mappedBy = "admin", targetEntity = Rent.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -30,6 +33,7 @@ public class Admin extends Person {
         super(id, f, l, p, st, c, sta, z, e, u, pass);
     }
 
+    @XmlTransient
     public List<Rent> getAdminRentList() {
         return adminRentList;
     }
@@ -38,6 +42,7 @@ public class Admin extends Person {
         this.adminRentList = adminRentList;
     }
 
+    @XmlTransient
     public List<Payment> getAdminPayments() {
         return adminPayments;
     }

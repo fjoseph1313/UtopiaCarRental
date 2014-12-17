@@ -10,12 +10,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author DiRauniyar
  */
 @Entity
+@XmlRootElement
 public class Customer extends Person {
 
     @OneToMany(mappedBy = "customer", targetEntity = Rent.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -28,6 +31,7 @@ public class Customer extends Person {
         super(id, f, l, p, st, c, sta, z, e, u, pass);
     }
 
+    @XmlTransient
     public List<Rent> getCustRentList() {
         return custRentList;
     }

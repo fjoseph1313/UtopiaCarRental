@@ -19,12 +19,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author DiRauniyar
  */
 @Entity
+@XmlRootElement
 public class Rent implements Serializable {
 
     private static final long serialVersionUID = 1L;
