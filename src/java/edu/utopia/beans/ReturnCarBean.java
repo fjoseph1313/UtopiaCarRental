@@ -53,7 +53,7 @@ public class ReturnCarBean implements Serializable {
     private double totalCharge;
     private int totalDays;
     private int size;
-    private String reservationCode;
+    private int reservationCode;
     private Rent rentDetail;
     private Payment payment;
 
@@ -140,11 +140,11 @@ public class ReturnCarBean implements Serializable {
         this.actualDropOffDate = actualDropOffDate;
     }
 
-    public String getReservationCode() {
+    public int getReservationCode() {
         return reservationCode;
     }
 
-    public void setReservationCode(String reservationCode) {
+    public void setReservationCode(int reservationCode) {
         this.reservationCode = reservationCode;
     }
 
