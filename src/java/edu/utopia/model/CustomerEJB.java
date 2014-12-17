@@ -30,4 +30,9 @@ public class CustomerEJB {
     public Customer findCustomer(String customer) {
         return this.customerFacade.findCustomerByUserName(customer);
     }
+
+    public Customer getCustomerByEmail(String email) {
+        System.out.println("Do we get here??*************************");
+       return this.customerFacade.getCustByEmail(email);
+    }
 }

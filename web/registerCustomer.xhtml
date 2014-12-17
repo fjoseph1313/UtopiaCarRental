@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>UTOPIA CAR RENTAL</title>
+        <h:outputStylesheet library="css" name="utopia.css" />
+        <h:outputStylesheet library="css" name="form.css" />
+    </h:head>
+    <h:body>
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+            <h:panelGroup id="templatemo_content" layout="block">
+                <h:panelGroup class="content_title_01" layout="block">CUSTOMER REGISTRATION FORM</h:panelGroup>
+                <p> </p>
+                <p> </p>
+
+                <h:outputLabel value="#{CustomerBean.successMessage}" /><br/>
+                <h:form class="form-style-10">
+                    <h:panelGrid columns="1" border="0">
+                        <h:panelGroup class="section" layout="block"><span>1</span>Personal Information</h:panelGroup>
+                        <h:panelGroup  layout="block" class="inner-wrap">
+                            <h:outputLabel value="First Name :"/>
+                            <h:inputText value="#{CustomerBean.customer.firstName}" 
+                                         required="true"
+                                         requiredMessage="**FirstName Required!"
+                                         id="fname"/>
+                            <h:message class="error" for="fname"/><br />
+
+                            <h:outputLabel value="Last Name :"/>
+                            <h:inputText value="#{CustomerBean.customer.lastName}"
+                                         required="true"
+                                         requiredMessage="**LastName Required!"
+                                         id="lname"/>
+                            <h:message class="error" for="lname"/><br />
+
+                            <h:outputLabel value="Phone Number :"/>
+                            <h:inputText value="#{CustomerBean.customer.phoneNumber}" />
+                            <h:message class="error" for=""/>    <br />            
+
+                            <h:outputLabel value="Email Address :"/>
+                            <h:inputText value="#{CustomerBean.customer.emailAddress}" id="email"
+                                         required="true"
+                                         requiredMessage="**Email Required!"/>
+                            <h:message class="error" for="email"/><br />
+                        </h:panelGroup>
+
+
+
+                        <h:panelGroup layout="block" class="section"><span>2</span>Address</h:panelGroup>>
+                        <h:panelGroup layout="block" class="inner-wrap">
+                            <h:outputLabel value="Street :"/>
+                            <h:inputText value="#{CustomerBean.customer.street}"
+                                         required="true"
+                                         requiredMessage="**Street Required!"
+                                         id="str"/>
+                            <h:message class="error" for="str"/><br />
+
+                            <h:outputLabel value="City :"/>
+                            <h:inputText value="#{CustomerBean.customer.city}"
+                                         required="true"
+                                         requiredMessage="**City Required!"
+                                         id="ct"/>
+                            <h:message class="error" for="ct"/><br />
+
+                            <h:outputLabel value="State :"/>
+                            <h:inputText value="#{CustomerBean.customer.state}"
+                                         required="true"
+                                         requiredMessage="**State Required!"
+                                         id="sta"/>
+                            <h:message class="error" for="sta"/><br />
+
+                            <h:outputLabel value="Zip Code :"/>
+                            <h:inputText value="#{CustomerBean.customer.zipCode}"
+                                         required="true"
+                                         requiredMessage="**ZipCode Needed!"
+                                         id="zip"/>
+                            <h:message class="error" for="zip"/><br />
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" class="section"><span>3</span>Credentials</h:panelGroup>>
+                        <h:panelGroup layout="block" class="inner-wrap">
+                            <h:outputLabel value="Password :"/>
+                            <h:inputSecret value="#{CustomerBean.customer.password}" id="pass"
+                                         required="true"
+                                         requiredMessage="**Password Required!"/>
+                            <h:message class="error" for="pass"/><br />
+                        </h:panelGroup>
+
+                        <f:facet name="footer">
+                            <h:panelGroup style="display:block; text-align:center">
+                                <h:commandButton action="#{CustomerBean.registerCustomer}" value="Register Customer"/>
+                            </h:panelGroup>
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <ui:include src="/templates/footer.xhtml"/>
+        </h:panelGroup>
+    </h:body>
+</html>
+

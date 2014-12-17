@@ -27,13 +27,25 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ReturnCarBean implements Serializable {
     @EJB
+    private RentalEJB rentalEJB;
+    @EJB
     private AdminEJB adminEJB;
     @EJB
     private PaymentFacade paymentFacade;
 
     @EJB
     private CarEJB carEJB;
+    
     private Date actualDropOffDate;
+    private String actualDate;
+
+    public String getActualDate() {
+        return actualDate;
+    }
+
+    public void setActualDate(String actualDate) {
+        this.actualDate = this.rentalEJB.dateParser(actualDropOffDate);
+    }
     private String show;
     private String updatedCarCondition;
     private double charge;
@@ -45,8 +57,24 @@ public class ReturnCarBean implements Serializable {
     private Rent rentDetail;
     private Payment payment;
 
-    @EJB
-    private RentalEJB rentalEJB;
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+    private String paymentDescription;
+
+    public String getPaymentDescription() {
+        return paymentDescription;
+    }
+
+    public void setPaymentDescription(String paymentDescription) {
+        this.paymentDescription = paymentDescription;
+    }
+
+    
 
     public double getCharge() {
         return charge;
@@ -124,7 +152,7 @@ public class ReturnCarBean implements Serializable {
      * Creates a new instance of ReturnCarBean
      */
     public ReturnCarBean() {
-        this.payment = new Payment();
+       
     }
 
     public Rent getRentDetail() {
@@ -136,6 +164,7 @@ public class ReturnCarBean implements Serializable {
     }
 
     public String searchReservation() {
+        System.out.println("Reservation Code"+reservationCode);
         rentDetail = this.rentalEJB.findRentByReservationCode(reservationCode);
         if (rentDetail == null) {
             this.size = 0;
@@ -183,6 +212,7 @@ public class ReturnCarBean implements Serializable {
     }
 
     public String makePayment() {
+         this.payment = new Payment();
         System.out.println("total charge" + this.totalCharge);
         this.payment.setAmount(this.totalCharge);
         Date date = new Date();
@@ -192,6 +222,7 @@ public class ReturnCarBean implements Serializable {
         } else {
             this.payment.setPaymentType("normal");
         }
+        this.payment.setPaymentDescription(paymentDescription);
         this.payment.setRent(this.rentDetail);
 //        newRent.setCustomer(this.customerEJB.findCustomer(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser())); //this mus be the logged in customer!
         this.payment.setAdmin(this.adminEJB.findAdmin(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()));

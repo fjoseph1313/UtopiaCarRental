@@ -23,6 +23,7 @@ public class LocationBean {
     @EJB
     private LocationFacade locationFacade;
     private Location location;
+     private String successMessage;
 //    public List<String> getLocation(String query) {
 //         List<String> results = new ArrayList<String>();
 //        for(int i = 0; i < 10; i++) {
@@ -31,6 +32,14 @@ public class LocationBean {
 //         
 //        return results;
 //    }
+
+    public String getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
 
     public List<Location> getLocationList() {
         return this.locationFacade.findAll();
@@ -51,6 +60,8 @@ public class LocationBean {
     public String addLocation() {
         // location.setLocationName(location.getLocationName());
         this.locationFacade.create(location);
+        this.successMessage = "Location Added Sucessfully";
+        this.location = null;
 
         return "addLocation";
     }

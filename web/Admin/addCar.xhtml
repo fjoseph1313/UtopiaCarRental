@@ -2,119 +2,134 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Utopia Car Rental</title>
         <h:outputStylesheet library="css" name="utopia.css" />
+        <h:outputStylesheet library="css" name="form.css" />
+        <h:outputStylesheet library="css" name="table.css" />
     </h:head>
     <h:body>
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+            <h:panelGroup id="templatemo_content" layout="block">
+                <h:panelGroup class="content_title_01" layout="block">CAR REGISTRATION</h:panelGroup>
 
-        <h:form>
-            <h:commandButton action="#{logOutBean.logout}" value="Logout" />
-        </h:form>
-
-        <p><H1>UTOPIA CAR RENTAL</H1></p><br />
-        <p><h:link outcome="index" value="HOME" /></p>
-        <h2> CARS REGISTRATION </h2>
-        <h:outputLabel value="CAR REGISTRATION FORM"/><br /><br />
-        <h:form styleClass="jsfcrud_list_form">
+                <h:outputLabel value="#{CarBean.successMessage}" /><br/>
+                <h:form class="form-style-10">
 
 
-            <h:panelGrid columns="3" border="0" bgcolor="skyblue">
+                    <h:panelGroup class="section" layout="block">Car Details</h:panelGroup>
 
-                <h:outputLabel value="Car Model :"/>
-                <h:inputText value="#{CarBean.car.carModel}" 
-                             required="true"
-                             requiredMessage="**Model Required!"
-                             id="carMod"/>
-                <h:message class="error" for="carMod"/>
+                    <h:panelGrid columns="2" border="0" >
+                        <h:panelGroup layout="block" class="inner-wrap">
+                            <h:outputLabel value="Car Model :"/>
+                            <h:inputText value="#{CarBean.car.carModel}" 
+                                         required="true"
+                                         requiredMessage="**Model Required!"
+                                         id="carMod"/>
+                            <h:message class="error" for="carMod"/>
+                            <br />
 
-                <h:outputLabel value="Car Condition :"/>
-                <h:inputText value="#{CarBean.car.carCondition}"
-                             required="true"
-                             requiredMessage="**Condition Required!"
-                             id="carCon"/>
-                <h:message class="error" for="carCon"/>
-
-                <h:outputLabel value="YOM(yyyy) :"/>
-                <h:inputText value="#{CarBean.car.carManufacturingYear}" id="year" required="true"
-                             requiredMessage="**Must Enter a Year"
-                             validatorMessage="Range must be between 1986 and 2020!"
-                             converterMessage="**Please Enter a Year, No String allowed">
-                    <f:validateDoubleRange minimum="1986" maximum="2020" />
-                </h:inputText>
-                <h:message class="error" for="year"/>                
-
-                <h:outputLabel value="Car Seats :"/>
-                <h:inputText value="#{CarBean.car.noOfSeats}" id="seat"/>
-                <h:message class="error" for="seat"/>
-
-                <h:outputLabel value="Location :"/>
-                <h:selectOneMenu value="#{CarBean.car.location}">
-                    <f:selectItems value="#{LocationBean.locationList}" 
-                                   var ="location" itemValue="#{location.id}"
-                                   itemLabel="#{location.location}" /> 
-                </h:selectOneMenu><br />
-
-                <h:outputLabel value="Price Per Hour :$"/>
-                <h:inputText value="#{CarBean.car.pricePerHour}"/>
-                <h:message class="error" for=""/>
-
-                <h:outputLabel value="Car Category :"/>
-                <h:selectOneMenu value="#{CarBean.catId}">
-                    <f:selectItems value="#{CategoryBean.categories}" 
-                                   var ="cat" itemValue="#{cat.id}"
-                                   itemLabel="#{cat.categoryName}" />
-                </h:selectOneMenu>
-                <h:message class="error" for=""/>
-
-                <f:facet name="footer">
-                    <h:panelGroup style="display:block; text-align:center">
-                        <h:commandButton action="#{CarBean.registerCar}" value="Register Car"/>
-                    </h:panelGroup>
-                </f:facet>        
-            </h:panelGrid>
+                            <h:outputLabel value="Car Condition :"/>
+                            <h:inputText value="#{CarBean.car.carCondition}"
+                                         required="true"
+                                         requiredMessage="**Condition Required!"
+                                         id="carCon"/>
+                            <h:message class="error" for="carCon"/>
+                            <br />
 
 
-        </h:form>
-        <hr />
-        <h2>UTOPIA's REGISTERED CARS</h2>
-        <h:dataTable var="car" value="#{CarBean.carList}"
-                     columnClasses="oddColumn, evenColumn"
-                     rowClasses="categoryOddRow,categoryEvenRow"
-                     headerClass="columnHeader">
-            <h:column >
-                <f:facet name="header" >MODEL</f:facet>
-                #{car.carModel} - #{car.noOfSeats}Seats.
-            </h:column>
-            <h:column>
-                <f:facet name="header" >CONDITION</f:facet>
-                    #{car.carCondition}
-            </h:column>
-            <h:column>
-                <f:facet name="header" >YOM</f:facet>
-                    #{car.carManufacturingYear}
-            </h:column>
-            <h:column>
-                <f:facet name="header" >CATEGORY</f:facet>
-                    #{car.category.categoryName}
-            </h:column>
-            <h:column>
-                <f:facet name="header" >STATUS</f:facet>
-                    #{car.status}
-            </h:column>
-            <h:column>
-                <f:facet name="header" >PRICE(PHR)</f:facet>
-                $#{car.pricePerHour}
-            </h:column>
-            <h:column>
-                <f:facet name="header" >LOCATION</f:facet>
-                    #{car.location}
-            </h:column>
-        </h:dataTable>
+                            <h:outputLabel value="YOM(yyyy) :"/>
+                            <h:inputText value="#{CarBean.car.carManufacturingYear}" id="year" required="true"
+                                         requiredMessage="**Must Enter a Year"
+                                         validatorMessage="Range must be between 1986 and 2020!"
+                                         converterMessage="**Please Enter a Year, No String allowed">
+                                <f:validateDoubleRange minimum="1986" maximum="2020" />
+                            </h:inputText>
+                            <h:message class="error" for="year"/>    
+                            <br />
 
 
+                            <h:outputLabel value="Car Seats :"/>
+                            <h:inputText value="#{CarBean.car.noOfSeats}" id="seat"/>
+                            <h:message class="error" for="seat"/>
+                            <br />
 
+
+                            <h:outputLabel value="Location :"/>
+                            <h:selectOneMenu value="#{CarBean.locationId}">
+                                <f:selectItems value="#{LocationBean.locationList}" 
+                                               var ="location" itemValue="#{location.id}"
+                                               itemLabel="#{location.location}" /> 
+                            </h:selectOneMenu><br />
+                            <br />
+
+
+                            <h:outputLabel value="Price Per Hour :$"/>
+                            <h:inputText value="#{CarBean.car.pricePerHour}"/>
+                            <h:message class="error" for=""/>
+                            <br />
+
+
+                            <h:outputLabel value="Car Category :"/>
+                            <h:selectOneMenu value="#{CarBean.catId}">
+                                <f:selectItems value="#{CategoryBean.categories}" 
+                                               var ="cat" itemValue="#{cat.id}"
+                                               itemLabel="#{cat.categoryName}" />
+                            </h:selectOneMenu>
+                            <h:message class="error" for=""/>
+                        </h:panelGroup>
+                        <br />
+
+                        <f:facet name="footer">
+                            <h:panelGroup style="display:block; text-align:center">
+
+                                <h:commandButton action="#{CarBean.registerCar}" value="Register Car" />
+                            </h:panelGroup>
+                        </f:facet>        
+                    </h:panelGrid>
+
+
+                </h:form>
+
+                <h2 style="color:#edad0f">UTOPIA'S REGISTERED CARS</h2>
+                <h:dataTable var="car" value="#{CarBean.carList}" class="table-4">
+                    <h:column >
+                        <f:facet name="header" >MODEL</f:facet>
+                        #{car.carModel} - #{car.noOfSeats}Seats.
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >CONDITION</f:facet>
+                            #{car.carCondition}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >YOM</f:facet>
+                            #{car.carManufacturingYear}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >CATEGORY</f:facet>
+                            #{car.category.categoryName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >STATUS</f:facet>
+                            #{car.status}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >PRICE(PHR)</f:facet>
+                        $#{car.pricePerHour}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" >LOCATION</f:facet>
+                            #{car.location.location}
+                    </h:column>
+                </h:dataTable>
+
+
+            </h:panelGroup>
+            <ui:include src="/templates/footer.xhtml"/>
+        </h:panelGroup>
     </h:body>
 </html>
 

@@ -2,56 +2,65 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Utopia Car Rental</title>
         <h:outputStylesheet library="css" name="utopia.css" />
+        <h:outputStylesheet library="css" name="form.css" />
     </h:head>
     <h:body>
-        <p><H1>THE HOME OF UTOPIA CAR RENTAL</H1></p><br />
-        <p><h:link outcome="index" value="HOME" /></p>
-        <f:view>
-            <h:form>
-                <h:outputLabel value="REGISTER CAR CATEGORIES"/><br /><br />
-                <h:outputLabel value="Category Name :"/>
-                <h:inputText value="#{CategoryBean.category.categoryName}" 
-                             required="true"
-                             requiredMessage="**Category Name must be provided!"
-                             id="catName"/>
-                <h:message for="catName" class="error"/><br /><br />
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+            <h:panelGroup id="templatemo_content" layout="block">
+                <h:panelGroup class="content_title_01" layout="block">CAR CATEGORIES</h:panelGroup>
+               <f:view>
+                    <h:outputLabel value="#{CategoryBean.successMessage}" /><br/>
+                    <h:form class="form-style-10">
+                        <h:panelGroup layout="block" class="inner-wrap">
+                            <h:outputLabel value="Category Name :"/>
+                            <h:inputText value="#{CategoryBean.category.categoryName}" 
+                                         required="true"
+                                         requiredMessage="**Category Name must be provided!"
+                                         id="catName"/>
+                            <h:message for="catName" class="error"/><br /><br />
 
-                <h:outputLabel value="Category Description :"/>
-                <h:inputText value="#{CategoryBean.category.categoryDescription}"
-                             required="true"
-                             requiredMessage="**Category Description **"
-                             id="catDesc"/>
-                <h:message class="error" for="catDesc"/><br /><br />
+                            <h:outputLabel value="Category Description :"/>
+                            <h:inputText value="#{CategoryBean.category.categoryDescription}"
+                                         required="true"
+                                         requiredMessage="**Category Description **"
+                                         id="catDesc"/>
+                            <h:message class="error" for="catDesc"/><br /><br />
+                        </h:panelGroup>
 
-                <h:commandButton action="#{CategoryBean.postCategory}" value="Post Category"/>
-            </h:form>
-            <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
-            <h:form>
-                <h:dataTable rendered="#{CategoryBean.catSize > 0}" var="cat" value="#{CategoryBean.categories}"
-                             columnClasses="oddColumn, evenColumn"
-                             rowClasses="categoryOddRow,categoryEvenRow">
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >CATEGORY NAME</f:facet>
-                        <h:outputText value="#{cat.categoryName}"/>
-                    </h:column>
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >CATEGORY DESCRIPTION</f:facet>
-                        <h:outputText value="#{cat.categoryDescription}"/>
-                    </h:column>
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header">DELETE</f:facet>
-                        <h:commandLink action="#{CategoryBean.deleteAction(cat)}" >
-                            <h:graphicImage library="images" name="cross.png" />
-                        </h:commandLink>
-                    </h:column>
+                        <h:commandButton action="#{CategoryBean.postCategory}" value="Post Category"/>
+                    </h:form>
+                    <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
+                    <h:form>
+                        <h:dataTable rendered="#{CategoryBean.catSize > 0}" var="cat" value="#{CategoryBean.categories}"
+                                     columnClasses="oddColumn, evenColumn"
+                                     rowClasses="categoryOddRow,categoryEvenRow">
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >CATEGORY NAME</f:facet>
+                                <h:outputText value="#{cat.categoryName}"/>
+                            </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >CATEGORY DESCRIPTION</f:facet>
+                                <h:outputText value="#{cat.categoryDescription}"/>
+                            </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header">DELETE</f:facet>
+                                <h:commandLink action="#{CategoryBean.deleteAction(cat)}" >
+                                    <h:graphicImage library="images" name="cross.png" />
+                                </h:commandLink>
+                            </h:column>
 
-                </h:dataTable>
-            </h:form>
-        </f:view>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+            </h:panelGroup>
+            <ui:include src="/templates/footer.xhtml"/>
+        </h:panelGroup>
     </h:body>
 </html>
 

@@ -6,7 +6,8 @@
     <h:head>
         <title>Utopia Car Rental</title>
         <h:outputScript library="css" name="templatemo_style.css" />
-        <h:outputScript library="css" name="form.css" />
+        
+        
     </h:head>
     <h:body>
         <ui:include src="/templates/header.xhtml"></ui:include>
@@ -15,13 +16,13 @@
             <h:panelGroup id="templatemo_content" layout="block">
 
                 <h:panelGroup class="content_title_01" layout="block">Welcome to UTOPIA RENTAL SERVICE</h:panelGroup>
-                <img src="resources/images/templatemo_image_01.jpg" alt="image 1" />
+                <h:graphicImage library="images" name="templatemo_image_01.jpg" />
                 <p> </p>
                 <p> </p>
 
                 <p>Utopia Car Rental provides you to plan your trip. Cheaper, You can pay payment after returning the car.To know more about us...</p>
-                <p>If you have an existing account.Please  <h:link outcome="#" value="Login" /><br /></p>
-                <p> If you area a new User....  <h:link outcome="/Customer/registerCustomer" value="Register" /><br /></p>
+                <p>If you have an existing account.Please  <h:link outcome="login.xhtml" value="Login" /><br /></p>
+                <p> If you area a new User....  <h:link outcome="registerCustomer" value="Register" /><br /></p>
 
                 <h:panelGroup layout="block" class="cleaner_h10">&nbsp;</h:panelGroup>
                 <h:panelGroup layout="block" class="horizontal_divider_01">&nbsp;</h:panelGroup>
@@ -52,6 +53,13 @@
                     <!--<ui:include src="login.xhtml"></ui:include>-->
 
                     <h:form>
+                        <h:commandLink value="Customer Signup" action="/registerCustomer?faces-redirect=true"/>
+                        <br/>
+                        
+                         <h:commandLink value="Admin Signup" action="/registerEmployee?faces-redirect=true"/>
+                        <br/>
+                        
+                        
                         <h:commandLink value="Customer Login" action="/Customer/applyRent?faces-redirect=true"/>
                         <br/>
                         <h:commandLink value="Admin Login" action="/Admin/index?faces-redirect=true"/>

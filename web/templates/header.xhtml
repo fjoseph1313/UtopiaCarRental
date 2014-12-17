@@ -1,32 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet library="css" name="templatemo_style.css" />
+        <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></link>-->
     </h:head>
     <h:body>
-       <div id="templatemo_container">
-	<!--  Free CSS Templates by TemplateMo.com  -->
-    <div id="templatemo_header">
-        <div id="website_title">
-            <h1>UTOPIA CAR RENTAL</h1>
-        </div>
-    </div> <!-- end of header -->
+        <div id="templatemo_container">
+            <!--  Free CSS Templates by TemplateMo.com  -->
+            <div id="templatemo_header">
+                <div id="website_title">
+                    <h1>UTOPIA CAR RENTAL</h1>
+                    <c:if test="#{request.isUserInRole('Admin') or request.isUserInRole('Customer')}">
+                        <ui:include src="welcomeUser.xhtml"></ui:include>
+                    </c:if>
 
-    <div id="templatemo_menu">
-        <ul>
-            <li><h:link outcome="index" value="Home" class="current"/></li>
-            
-            <li><a href="" target="_parent">Services</a></li>
-            <li><a href="http://www.templatemo.com" target="_parent">Showroom</a></li>
-            <li><a href="#">Awards</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#" class="last">Contact</a></li>
-        </ul> 
-    </div>    <!-- end of menu -->
-       </div>
+                </div>
+            </div> <!-- end of header -->
+
+            <div id="templatemo_menu">
+                <ul>
+                    <li><h:link outcome="index" value="Home" class="current"/></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#" class="last">Contact</a></li>
+                    <h:form>
+                        <c:if test="#{request.isUserInRole('Admin')!=true and request.isUserInRole('Customer')!=true}">
+                            <li><h:commandLink action="login.xhtml" value="Login" /> </li>
+                        </c:if>
+                    </h:form>
+                    <c:if test="#{request.isUserInRole('Admin') or request.isUserInRole('Customer')}">
+                        <h:form>
+                            <li><h:commandLink action="#{logOutBean.logout}" value="Logout" /> </li>
+                        </h:form>
+                    </c:if>
+                </ul> 
+            </div>    <!-- end of menu -->
+        </div>
     </h:body>
 </html>
 

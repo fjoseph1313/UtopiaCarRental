@@ -7,21 +7,14 @@ and open the template in the editor.
     Created on : Nov 26, 2014, 4:32:17 PM
     Author     : fjoseph1313
 */
-.oddColumn{
-    height: 25px;
-    text-align: left;
-    background: mediumturquoise;
-}
-.evenColumn{
-    text-align: left;
-    background: powderblue;
-}
+
 .columnHeader{
-    background-color: appworkspace;
+    
 }
 .categoryOddRow{
     text-align:center;
-    background:none repeat scroll 0 0 #FFFFFF;	
+    background:none repeat scroll 0 0 #dddda7;	
+    color : #000;
 }
 
 .categoryEvenRow{
@@ -33,7 +26,7 @@ and open the template in the editor.
     color: red;
 }
 fieldset {
-    background-color: #E0E0FF;
+    margin: 0 0 10px 0;
     border: 2px outset gray;
     border-radius: 10px;
 }
@@ -43,7 +36,7 @@ input[type="submit"] {
     font-weight: bold;
 }
 legend {
-    background-color: white;
+    
     border: 2px outset gray;
     padding: 0.2em;
 }

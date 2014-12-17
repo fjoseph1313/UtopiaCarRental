@@ -33,10 +33,10 @@ public class Rent implements Serializable {
     private Long id;
     @Temporal(TemporalType.DATE)
     private Date pickUpDate;
-    private String pickUpLocation;
+    private Location pickUpLocation;
     @Temporal(TemporalType.DATE)
     private Date dropOffDate;
-    private String dropOffLocation;
+    private Location dropOffLocation;
     private String reservationCode;
 
     @ManyToOne
@@ -62,6 +62,7 @@ public class Rent implements Serializable {
     }
 
     public Date getPickUpDate() {
+        
         return pickUpDate;
     }
 
@@ -69,11 +70,11 @@ public class Rent implements Serializable {
         this.pickUpDate = pickUpDate;
     }
 
-    public String getPickUpLocation() {
+    public Location getPickUpLocation() {
         return pickUpLocation;
     }
 
-    public void setPickUpLocation(String pickUpLocation) {
+    public void setPickUpLocation(Location pickUpLocation) {
         this.pickUpLocation = pickUpLocation;
     }
 
@@ -85,11 +86,11 @@ public class Rent implements Serializable {
         this.dropOffDate = dropOffdate;
     }
 
-    public String getDropOffLocation() {
+    public Location getDropOffLocation() {
         return dropOffLocation;
     }
 
-    public void setDropOffLocation(String DropOffLocation) {
+    public void setDropOffLocation(Location DropOffLocation) {
         this.dropOffLocation = DropOffLocation;
     }
 

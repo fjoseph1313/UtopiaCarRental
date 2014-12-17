@@ -27,13 +27,21 @@ public class AdminBean {
     @EJB
     private AdminEJB adminEJB;
     private Admin admin;
-
+   private String successMessage;
     public AdminBean() {
         this.admin = new Admin();
     }
 
     public Admin getAdmin() {
         return admin;
+    }
+
+    public String getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
     }
 
     public void setAdmin(Admin admin) {
@@ -47,6 +55,8 @@ public class AdminBean {
         }
         admin.setPassword(getEncryptedPassword(admin.getPassword()));
         Admin addedAdmin = this.adminEJB.createAdmin(admin);
+        this.setSuccessMessage("Employee Register Sucessafully");
+        this.admin = null;
         return "registerEmployee";
     }
 

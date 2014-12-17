@@ -6,30 +6,49 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>UTOPIA CAR RENTAL</title>
         <h:outputStylesheet library="css" name="utopia.css" />
+        <h:outputStylesheet library="css" name="form.css" />
     </h:head>
     <h:body>
-        <p>Login to access secure pages:</p>
+        
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+           <h:panelGroup id="templatemo_content" layout="block">
+               <h:panelGroup class="content_title_01" layout="block">LOGIN TO ACCESS SECURE PAGES</h:panelGroup>
+               
+                    <p> </p>
+                    <p> </p>
+                    <form method="POST" action="j_security_check" class="form-style-10">
+                        
+                        <h:panelGrid columns="2">
+                            <h:panelGroup layout="block" class="inner-wrap">
+                                <h:panelGroup>
+                                <h:outputLabel for="j_username" value="Username" />
+                                <input type="text" name="j_username" />
+                                </h:panelGroup>
+                            <br/>
+                            <h:panelGroup>
+                                <h:outputLabel for="j_password" value="Password" />
+                                <input type="password" name="j_password" />
+                            </h:panelGroup>
+                            </h:panelGroup>
 
-        <form method="POST" action="j_security_check">
-
-            <h:panelGrid columns="2">
-                <h:outputLabel for="j_username" value="Username" />
-                <input type="text" name="j_username" />
-
-                <h:outputLabel for="j_password" value="Password" />
-                <input type="password" name="j_password" />
-
-                <h:outputText value="" />
-                <h:panelGrid columns="2">
-                    <input type="submit" name="submit" value="Login" />
-                    <h:button outcome="index" value="Cancel" />
-                </h:panelGrid>
-            </h:panelGrid>
-        </form>
+                            <h:outputText value="" />
+                            <h:panelGrid columns="2"  class="button-section">
+                                <input type="submit" name="submit" value="Login" />
+                                <h:button outcome="index" value="Cancel" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </form>
+            </h:panelGroup>
+             <h:panelGroup layout="block" class="cleaner"></h:panelGroup>
+    <ui:include src="/templates/footer.xhtml"></ui:include>
+        </h:panelGroup>
+   
     </h:body>
 </html>
 

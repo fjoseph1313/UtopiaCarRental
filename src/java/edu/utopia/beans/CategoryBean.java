@@ -25,6 +25,7 @@ public class CategoryBean implements Serializable {
     private CategoryEJB catEjb;
     private Category category;
     private int catSize;
+    private String successMessage;
 
     public CategoryBean() {
         this.category = new Category();
@@ -36,6 +37,14 @@ public class CategoryBean implements Serializable {
 
     public void setCatEjb(CategoryEJB catEjb) {
         this.catEjb = catEjb;
+    }
+
+    public String getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
     }
 
     public Category getCategory() {
@@ -60,6 +69,8 @@ public class CategoryBean implements Serializable {
         //clear the form after submit successfully
         category.setCategoryName("");
         category.setCategoryDescription("");
+        this.successMessage = "Category Added SucessFully";
+        this.category = null;
         return "addCategory";
     }
 

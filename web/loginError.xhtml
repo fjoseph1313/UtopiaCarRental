@@ -6,11 +6,25 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        
+        <title>Error in login</title>
     </h:head>
     <h:body>
-        Error in login...
+        <ui:include src="/templates/header.xhtml"/>
+         <h:panelGroup layout="block" id="templatemo_content_wrapper">
+           <h:panelGroup id="templatemo_content" layout="block">
+               <h:panelGroup class="content_title_01" layout="block">Welcome to UTOPIA RENTAL SERVICE</h:panelGroup>
+                    <img src="resources/images/templatemo_image_01.jpg" alt="image 1" />
+                    <p> </p>
+                    <p> </p>
+
+                    Error in login...
+            </h:panelGroup>
+             <ui:include src="/templates/footer.xhtml"/>
+         </h:panelGroup>
+        
     </h:body>
 </html>

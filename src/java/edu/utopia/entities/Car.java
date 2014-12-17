@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 /**
@@ -40,7 +41,8 @@ public class Car implements Serializable {
     @Transient
     private String imageURL;
     private String status;
-    private String location;
+    @OneToOne
+    private Location location;
     private double pricePerHour;
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -107,11 +109,11 @@ public class Car implements Serializable {
         this.status = status;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

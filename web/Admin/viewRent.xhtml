@@ -7,81 +7,70 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Utopia Car Rental</title>
         <h:outputStylesheet library="css" name="utopia.css" />
+        <h:outputStylesheet library="css" name="form.css" />
+        <h:outputStylesheet library="css" name="table.css" />
     </h:head>
     <h:body>
-        <p><H1>THE HOME OF UTOPIA CAR RENTAL</H1></p><br />
-        <p><h:link outcome="index" value="HOME" /></p>
-        <f:view>
-            <h:form>
-                <!--<h:commandButton action="# { RentalBean.requestedRents}" value="view requested rents"/>-->
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+            <h:panelGroup id="templatemo_content" layout="block">
+                <f:view>
+                    <h:form>
+                        <h:panelGroup class="content_title_01" layout="block"> REQUESTED RENTS FOR APPROVAL </h:panelGroup>
+                        <h:dataTable var="rent" value="#{RentalBean.requestedRents}" class="table-4">
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Drop Of Date</f:facet>
+                                <h:outputText id="dropOffDate" value="#{rent.dropOffDate}"/>
 
-                <h2> REQUESTED RENTS FOR APPROVAL</h2>
-                <h:dataTable var="rent" value="#{RentalBean.requestedRents}">
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Drop Of Date</f:facet>
-                        <h:outputText id="dropOffDate" value="#{rent.dropOffDate}"/>
+                            </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Drop Of Location</f:facet>
+                                    #{rent.dropOffLocation.location}
+                            </h:column>
 
-                    </h:column>
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Drop Of Location</f:facet>
-                            #{rent.dropOffLocation}
-                    </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Pick Up Date</f:facet>
+                                    #{rent.pickUpDate}
+                            </h:column>
 
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Pick Up Date</f:facet>
-                            #{rent.pickUpDate}
-                    </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Pick up Location</f:facet>
+                                    #{rent.pickUpLocation.location}
 
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Pick up Location</f:facet>
-                            #{rent.pickUpLocation}
+                            </h:column>
 
-                    </h:column>
-
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Rental Status</f:facet>
-                            #{rent.rentStatus}
-                    </h:column>
-
-
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Approve</f:facet>
-                        <h:commandLink value="Approve" action="#{RentalBean.approveRequestedRent(rent)}"/>
-                    </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Rental Status</f:facet>
+                                    #{rent.rentStatus}
+                            </h:column>
 
 
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >Disapprove</f:facet>
-                        <h:commandLink value="Disapprove" action="#{RentalBean.disapproveRequestedRent(rent)}"/>
-                    </h:column>
-
-                    <h:column headerClass="columnHeader" >
-                        <f:facet name="header" >View</f:facet>
-                        <h:commandLink value="View" action="#{RentalBean.getRequestedRentInformation(rent)}"/>
-                    </h:column>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Approve</f:facet>
+                                <h:commandLink value="Approve" action="#{RentalBean.approveRequestedRent(rent)}"/>
+                            </h:column>
 
 
-                </h:dataTable>
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >Disapprove</f:facet>
+                                <h:commandLink value="Disapprove" action="#{RentalBean.disapproveRequestedRent(rent)}"/>
+                            </h:column>
 
+                            <h:column headerClass="columnHeader" >
+                                <f:facet name="header" >View</f:facet>
+                                <h:commandLink value="View" action="#{RentalBean.getRequestedRentInformation(rent)}"/>
+                            </h:column>
+                       </h:dataTable>
+                 </h:form>
 
-
-
-                <!--                       <h:form>
-                               
-                                    <h:commandButton value="Approve" action="# {RentalBean.approveRequestedRent}"/>
-                                    <h:commandButton value="Disapprove"/>
-                                
-                                
-                                </h:form>-->   
-            </h:form>
-
-
-
-
-        </f:view>
+                </f:view>
+            </h:panelGroup>
+            <ui:include src="/templates/footer.xhtml"/>
+        </h:panelGroup>
     </h:body>
 </html>

@@ -19,10 +19,20 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "CustomerBean")
 @RequestScoped
 public class CustomerBean {
+    
 
     @EJB
     private CustomerEJB customerEJB;
     private Customer customer;
+    private String successMessage;
+
+    public String getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
 
     public CustomerBean() {
         this.customer = new Customer();
@@ -37,13 +47,30 @@ public class CustomerBean {
     }
 
     public String registerCustomer() {
+        if(this.isDuplicated(customer)== false) {
         customer.setUserName(customer.getEmailAddress()); //assign username as email address
         customer.setPassword(getEncryptedPassword(customer.getPassword()));
         Customer addedCustomer = this.customerEJB.createCustomer(customer); //do manipulation with addedCustomer
+        this.successMessage = "Customer Added Sucessfully";
+        this.customer = null;
         return "registerCustomer";
+        } else {
+            this.successMessage = "Customer already exists ... Try another email";
+         return null;
+        }
     }
 
     public Customer searchCustomerByUserName(String customer) {
         return this.customerEJB.findCustomer(customer);
+    }
+
+    public boolean isDuplicated(Customer p) {
+        System.out.println("Person isduplicate ..." + p.getEmailAddress());
+        Customer custFetched = this.customerEJB.getCustomerByEmail(p.getEmailAddress());
+        if (custFetched == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

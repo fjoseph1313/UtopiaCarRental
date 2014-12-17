@@ -36,4 +36,21 @@ public class CustomerFacade extends AbstractFacade<Customer> {
         return (Customer) query.getSingleResult();
     }
 
+    public Customer getCustByEmail(String email)//the should work fxn
+    {
+        System.out.println("how about here??? Custfacade....." + email);
+        Query query = em.createQuery("SELECT c FROM Customer c WHERE c.emailAddress = :mail");
+        query.setParameter("mail", email);
+        if (query.getResultList().size() > 0) {
+            System.out.println("size of the list is " + query.getResultList().size());
+            Customer cust = (Customer) query.getSingleResult();
+            System.out.println("Customer found: " + cust.getLastName());
+            return cust;
+        } else {
+            return null;
+        }
+    }
+  
+
+
 }

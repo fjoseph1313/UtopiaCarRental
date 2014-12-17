@@ -3,55 +3,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>UTOPIA CAR RENTAL</title>
         <h:outputStylesheet library="css" name="utopia.css" />
+        <h:outputStylesheet library="css" name="form.css" />
+        <h:outputStylesheet library="css" name="table.css" />
     </h:head>
     <h:body>
-        <p><H1>UTOPIA CAR RENTAL</H1></p><br />
-        <p><h:link outcome="index" value="HOME" /></p>
-        <h2> AVAILABLE CARS IN YOUR LOCATION! </h2>
-        <h:outputLabel value="RENT APPLICATION FORM"/><br /><br />
+        <ui:include src="/templates/header.xhtml"></ui:include>
+        <h:panelGroup layout="block" id="templatemo_content_wrapper">
+            <h:panelGroup id="templatemo_content" layout="block">
+                <h:panelGroup class="content_title_01" layout="block"> AVAILABLE CARS IN YOUR LOCATION! </h:panelGroup>
 
-        <h:outputLabel value="Pick Up Location: #{RentalBean.pLocale}" /><br />
-        <h:outputLabel value="Pick Up Date: #{RentalBean.pDate}" /><br />
-        <h:outputLabel value="Drop Off Location: #{RentalBean.dLocale}" /><br />
-        <h:outputLabel value="Drop Off Date: #{RentalBean.dDate}" /><br /><br /><br />
-        <h:outputLabel style="font-weight: bold" value="NO CAR AVAILABLE FOR THE CRITERIA YOU SPECIFIED" rendered="#{RentalBean.listSize == 0}"/>
-        <br />
-        <h:outputLabel value="Please Try Next time!!" rendered="#{RentalBean.listSize == 0}"/>
-        <h:outputLabel value="#{RentalBean.listSize}"/>
-        <h:form styleClass="jsfcrud_list_form">
-            <h:dataTable value="#{RentalBean.criteriaCarsList}" var="car" rendered="#{RentalBean.listSize > 0}"
-                         columnClasses="oddColumn, evenColumn"
-                         rowClasses="categoryOddRow,categoryEvenRow"
-                         headerClass="columnHeader">
-                <f:facet name="header">
-                    AVAILABLE CARS IN YOUR LOCATION
-                </f:facet>
-                <h:column>
-                    <h:outputText value="Picha ya Gari" />
-                </h:column>
-                <h:column>
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputText value="Car Details : " style="font-weight: bold"/>
-                        <h:outputText value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats} Seats" style="font-weight: bold"/>
+                <h:panelGroup class="carListForm" layout="block">
+                    <h:outputLabel value="Pick Up Location: #{RentalBean.ploc.location}" /><br />
+                    <h:outputLabel value="Pick Up Date: #{RentalBean.fromDate}" /><br />
+                    <h:outputLabel value="Drop Off Location: #{RentalBean.dloc.location}" /><br />
+                    <h:outputLabel value="Drop Off Date: #{RentalBean.toDate}" /><br /><br /><br />
+                    <h:outputLabel style="font-weight: bold" value="NO CAR AVAILABLE FOR THE CRITERIA YOU SPECIFIED" rendered="#{RentalBean.listSize == 0}"/>
+                    <br />
+                    <h:outputLabel value="Please Try Next time!!" rendered="#{RentalBean.listSize == 0}"/>
+                    
+                </h:panelGroup>
+                <h:outputLabel class="listnumber"  value="SEARCH RESULT: #{RentalBean.listSize}"/>
+                <h:form styleClass="">
+                    <h:dataTable value="#{RentalBean.criteriaCarsList}" class="table-4" var="car" rendered="#{RentalBean.listSize > 0}"
+                                >
+                        <f:facet name="header">
+                            AVAILABLE CARS IN YOUR LOCATION
+                        </f:facet>
+                        <h:column>
+                            <h:outputText value="Picha ya Gari" />
+                        </h:column>
+                        <h:column>
+                            <h:panelGrid columns="2" cellpadding="5" class="insidetable">
+                                <h:outputLabel value="Car Details : " />
+                                <h:outputLabel value="#{car.carManufacturingYear} #{car.carModel} - #{car.noOfSeats} Seats" />
 
-                        <h:outputText value="Condition : " style="font-weight: bold" />
-                        <h:outputText value="#{car.carCondition}" />
+                                <h:outputLabel value="Condition : "  />
+                                <h:outputLabel value="#{car.carCondition}" />
 
-                        <h:outputText value="Price : " style="font-weight: bold" />
-                        <h:outputText value="$#{car.pricePerHour} Per Hour / $#{car.pricePerHour*24} Per Day" />
+                                <h:outputLabel value="Price : "  />
+                                <h:outputLabel value="$#{car.pricePerHour} Per Hour / $#{car.pricePerHour*24} Per Day" />
 
-                    </h:panelGrid>
-                </h:column>
-                <h:column>
-                    <h:commandLink value="Rent Now" action="#{RentalBean.rentCar(car)}" />
-                </h:column>
-            </h:dataTable>
-        </h:form>
-
+                            </h:panelGrid>
+                        </h:column>
+                        <h:column>
+                            <h:commandLink value="Rent Now" action="#{RentalBean.rentCar(car)}" />
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </h:panelGroup>
+            <ui:include src="/templates/footer.xhtml"/>
+        </h:panelGroup>
     </h:body>
 </html>
 
