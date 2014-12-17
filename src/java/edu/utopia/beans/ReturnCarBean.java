@@ -181,7 +181,7 @@ public class ReturnCarBean implements Serializable {
         Car thisCar = rentDetail.getCar();
         thisCar.setCarCondition(this.updatedCarCondition);
         //change the status of the car to available 
-        thisCar.setStatus("Available");
+        thisCar.setStatus("available");
         this.carEJB.updateCar(thisCar);
         if (this.actualDropOffDate == null) {
             System.out.println("Actual return date" + this.actualDropOffDate);

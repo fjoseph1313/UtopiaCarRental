@@ -6,8 +6,8 @@
     <h:head>
         <title>Utopia Car Rental</title>
         <h:outputScript library="css" name="templatemo_style.css" />
-        
-        
+
+
     </h:head>
     <h:body>
         <ui:include src="/templates/header.xhtml"></ui:include>
@@ -21,7 +21,10 @@
                 <p> </p>
 
                 <p>Utopia Car Rental provides you to plan your trip. Cheaper, You can pay payment after returning the car.To know more about us...</p>
-                <p>If you have an existing account.Please  <h:link outcome="login.xhtml" value="Login" /><br /></p>
+                <p>If you have an existing account.Please  
+                    <h:form>
+                        <h:commandLink value="Login" action="/Customer/applyRent?faces-redirect=true"/>
+                    </h:form><br /></p>
                 <p> If you area a new User....  <h:link outcome="registerCustomer" value="Register" /><br /></p>
 
                 <h:panelGroup layout="block" class="cleaner_h10">&nbsp;</h:panelGroup>
@@ -49,34 +52,26 @@
                 <h:panelGroup layout="block" class="cleaner_w50">&nbsp;</h:panelGroup>
 
                 <h:panelGroup layout="block" class="column_02">
-                    <h:panelGroup layout="block" class="content_title_02">Login Form</h:panelGroup>                
-                    <!--<ui:include src="login.xhtml"></ui:include>-->
+                    <h:panelGroup layout="block" class="content_title_02">Services</h:panelGroup>                
+                        <p>Utopia Car Rental</p>
+                        <ul>
+                            <li>Get Cheaper Price</li>
+                            <li>Payment on Returning</li>
+                            <li>Easily Available</li>
+                        </ul>
 
-                    <h:form>
-                        <h:commandLink value="Customer Signup" action="/registerCustomer?faces-redirect=true"/>
-                        <br/>
-                        
-                         <h:commandLink value="Admin Signup" action="/registerEmployee?faces-redirect=true"/>
-                        <br/>
-                        
-                        
-                        <h:commandLink value="Customer Login" action="/Customer/applyRent?faces-redirect=true"/>
-                        <br/>
-                        <h:commandLink value="Admin Login" action="/Admin/index?faces-redirect=true"/>
-                    </h:form>
-                    
-                    <h:panelGroup layout="block" class="cleaner_h20">&nbsp;</h:panelGroup>
-                    <h:panelGroup layout="block" class="rc_btn_01"><a href="#">Read All</a></h:panelGroup>
+                        <h:panelGroup layout="block" class="cleaner_h20">&nbsp;</h:panelGroup>
+                        <h:panelGroup layout="block" class="rc_btn_01"><a href="#">Read All</a></h:panelGroup>
                 </h:panelGroup>
 
-                <h:panelGroup class="cleaner">&nbsp;</h:panelGroup>
-            </h:panelGroup>>
-            <h:panelGroup layout="block" class="cleaner">&nbsp;</h:panelGroup>
-            <ui:include src="/templates/footer.xhtml"></ui:include>
+                                <h:panelGroup class="cleaner">&nbsp;</h:panelGroup>
+                            </h:panelGroup>>
+                            <h:panelGroup layout="block" class="cleaner">&nbsp;</h:panelGroup>
+                            <ui:include src="/templates/footer.xhtml"></ui:include>
 
-        </h:panelGroup> <!-- end of content wrapper -->
+                        </h:panelGroup> <!-- end of content wrapper -->
 
 
-    </h:body>
-</html>
+                        </h:body>
+                        </html>
 

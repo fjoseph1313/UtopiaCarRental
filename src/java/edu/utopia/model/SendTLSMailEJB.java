@@ -27,8 +27,8 @@ public class SendTLSMailEJB {
 
     @Asynchronous
     public void applicationEmail(String toEmail, String customerName, String car, Long rentDuration, Long amt) {
-        final String username = "sharemum@gmail.com";
-        final String password = "sharemum@gmail";
+        final String username = "ea.rentalcar@gmail.com";
+        final String password = "Eaproject!";
         StringBuilder messageBody = new StringBuilder();
 
         Properties props = new Properties();
@@ -46,7 +46,7 @@ public class SendTLSMailEJB {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("admin@utopiacarrental.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(toEmail));
             message.setSubject("Car Rental Application Request");
@@ -105,20 +105,20 @@ public class SendTLSMailEJB {
             message.setSubject(emailSubject);
 
             messageBody.append("Dear ").append(rent.getCustomer().getFirstName()).append(" ").append(rent.getCustomer().getLastName()).append("," + "\n\n");
-            messageBody.append("Thank you for choosing the services of Utopia Car Rental. Your request for " + "renting the following car has ").append(status).append(".\n\n");
-            messageBody.append("Car Category: ").append(rent.getCar().getCategory().getCategoryName()).append("\n\n");
-            messageBody.append("Car Model: ").append(rent.getCar().getCarModel()).append("\n\n");
-            messageBody.append("Pick Up Location: ").append(rent.getPickUpLocation()).append("\n\n");
-            messageBody.append("Pick Up Date: ").append((Date) rent.getPickUpDate()).append("\n\n");
-            messageBody.append("Drop Off Location: ").append(rent.getDropOffLocation()).append("\n\n");
+            messageBody.append("\t\tThank you for choosing the services of Utopia Car Rental. Your request for " + "renting the following car has ").append(status).append(".\n\n");
+            messageBody.append("Car Category: ").append(rent.getCar().getCategory().getCategoryName()).append("\n");
+            messageBody.append("Car Model: ").append(rent.getCar().getCarModel()).append("\n");
+            messageBody.append("Pick Up Location: ").append(rent.getPickUpLocation()).append("\n");
+            messageBody.append("Pick Up Date: ").append((Date) rent.getPickUpDate()).append("\n");
+            messageBody.append("Drop Off Location: ").append(rent.getDropOffLocation()).append("\n");
             messageBody.append("Drop Off Date ").append((Date) rent.getDropOffDate()).append("\n\n");
 
             if (reservationCode != null) {
-                messageBody.append("Please use the following reservation Code to make your payments. \n\n");
+                messageBody.append("Please use the following reservation Code to make your payments. \n");
                 messageBody.append(reservationCode).append("\n\n");
             }
 
-            messageBody.append("This is automated email please don't reply it.\n\n");
+            messageBody.append("This is automated email please don't reply it.\n");
             messageBody.append("Best Regards\n");
 
             message.setText(messageBody.toString());

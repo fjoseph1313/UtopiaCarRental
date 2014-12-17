@@ -49,7 +49,7 @@ and open the template in the editor.
     font: 13px Arial, Helvetica, sans-serif;
 }
 .form-style-10 label{
-/*    display: block;*/
+    /*    display: block;*/
     font: 13px Arial, Helvetica, sans-serif;
     color: #888;
     margin: 9px 0 15px 0;
@@ -68,8 +68,8 @@ and open the template in the editor.
 .form-style-10 input[type="password"],
 .form-style-10 textarea,
 .form-style-10 select {
-/*    display: block;*/
-margin: 0 0 10px;
+    /*    display: block;*/
+    margin: 0 0 10px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -82,7 +82,7 @@ margin: 0 0 10px;
     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
     -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
     -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
-    
+
 }
 
 .form-style-10 .section{
@@ -160,7 +160,7 @@ margin: 0 0 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
     width: 125px;
     text-decoration: none;
-    
+
 }
 .hiddentext {
     border: 1px solid #ccc;
@@ -168,5 +168,10 @@ margin: 0 0 10px;
 .receipt label{
     width: 100% !important;
     color: #000;
+}
+.headerlink{
+    
+    float: right;
+    margin-right: 80px;
 }
 
