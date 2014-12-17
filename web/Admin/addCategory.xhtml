@@ -8,6 +8,7 @@
         <title>Utopia Car Rental</title>
         <h:outputStylesheet library="css" name="utopia.css" />
         <h:outputStylesheet library="css" name="form.css" />
+        <h:outputStylesheet library="css" name="table.css" />
     </h:head>
     <h:body>
         <ui:include src="/templates/header.xhtml"></ui:include>
@@ -35,11 +36,10 @@
 
                         <h:commandButton action="#{CategoryBean.postCategory}" value="Post Category"/>
                     </h:form>
-                    <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
+                    <h2 style="color:#edad0f">EXISTING CATEGORIES IN OUR DATABASE</h2>
                     <h:form>
                         <h:dataTable rendered="#{CategoryBean.catSize > 0}" var="cat" value="#{CategoryBean.categories}"
-                                     columnClasses="oddColumn, evenColumn"
-                                     rowClasses="categoryOddRow,categoryEvenRow">
+                                     class="table-4">
                             <h:column headerClass="columnHeader" >
                                 <f:facet name="header" >CATEGORY NAME</f:facet>
                                 <h:outputText value="#{cat.categoryName}"/>

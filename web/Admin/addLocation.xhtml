@@ -8,6 +8,7 @@
         <title>Add Location</title>
         <h:outputStylesheet library="css" name="utopia.css" />
         <h:outputStylesheet library="css" name="form.css" />
+        <h:outputStylesheet library="css" name="table.css" />
     </h:head>
     <h:body>
         <ui:include src="/templates/header.xhtml"></ui:include>
@@ -22,7 +23,7 @@
                         <h:panelGroup class="section" layout="block">Location Details</h:panelGroup>
 
                         <h:panelGroup layout="block" class="inner-wrap">
-                            <h:outputLabel value="Location Address :"/>
+                            <h:outputLabel value="Location Address "/>
                             <h:inputText value="#{LocationBean.location.location}" 
                                          required="true"
                                          requiredMessage="**Address Required!"
@@ -38,8 +39,8 @@
 
                 </h:form>
 
-                <h2>EXISTING CATEGORIES IN OUR DATABASE</h2>
-                <h:dataTable var="location" value="#{LocationBean.locationList}"
+                <h2 style="color:#edad0f">EXISTING LOCATIONS IN OUR DATABASE</h2>
+                <h:dataTable var="location" value="#{LocationBean.locationList}" class="table-4">
                              columnClasses="oddColumn, evenColumn"
                              rowClasses="categoryOddRow,categoryEvenRow">
                     <h:column headerClass="columnHeader" >

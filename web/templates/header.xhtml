@@ -7,7 +7,8 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet library="css" name="templatemo_style.css" />
-        <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></link>-->
+        <h:outputStylesheet library="css" name="form.css" />
+        
     </h:head>
     <h:body>
         <div id="templatemo_container">
@@ -15,6 +16,7 @@
             <div id="templatemo_header">
                 <div id="website_title">
                     <h1>UTOPIA CAR RENTAL</h1>
+
                     <c:if test="#{request.isUserInRole('Admin') or request.isUserInRole('Customer')}">
                         <ui:include src="welcomeUser.xhtml"></ui:include>
                     </c:if>
@@ -25,11 +27,11 @@
             <div id="templatemo_menu">
                 <ul>
                     <li><h:link outcome="index" value="Home" class="current"/></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#" class="last">Contact</a></li>
+                   <li><h:link outcome="Contact" value="Contact" class="current"/></li>
                     <h:form>
                         <c:if test="#{request.isUserInRole('Admin')!=true and request.isUserInRole('Customer')!=true}">
-                            <li><h:commandLink action="login.xhtml" value="Login" /> </li>
+                            <li><h:commandLink action="/Customer/applyRent?faces-redirect=true" value="Customer Login" /> </li>
+                            <li><h:commandLink class="header" value="Admin Login" action="/Admin/index?faces-redirect=true"/></li>
                         </c:if>
                     </h:form>
                     <c:if test="#{request.isUserInRole('Admin') or request.isUserInRole('Customer')}">
@@ -37,6 +39,7 @@
                             <li><h:commandLink action="#{logOutBean.logout}" value="Logout" /> </li>
                         </h:form>
                     </c:if>
+                     
                 </ul> 
             </div>    <!-- end of menu -->
         </div>
