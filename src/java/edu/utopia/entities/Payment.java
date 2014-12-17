@@ -15,12 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author fjoseph1313
  */
 @Entity
+@XmlRootElement
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;

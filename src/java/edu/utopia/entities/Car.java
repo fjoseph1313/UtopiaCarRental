@@ -20,6 +20,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,6 +29,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @NamedQuery(name = FIND_ALL, query = "SELECT c FROM Car c")
+@XmlRootElement
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -133,6 +136,7 @@ public class Car implements Serializable {
         this.category = category;
     }
 
+    @XmlTransient
     public List<Rent> getCarRentList() {
         return carRentList;
     }

@@ -57,7 +57,7 @@ public class RentalEJB {
         return rent;
     }
 
-    public Rent findRentByReservationCode(String reservationCode) {
+    public Rent findRentByReservationCode(int reservationCode) {
         return this.rentFacade.findRentByReservationCode(reservationCode);
     }
 

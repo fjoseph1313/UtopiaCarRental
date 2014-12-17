@@ -284,7 +284,7 @@ public class RentalBean implements Serializable {
         String name = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         System.out.println("user name is " + name);
         rent.setAdmin(this.adminEJB.findAdmin(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser()));
-        rent.getAdmin().setUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+//        rent.getAdmin().setUserName(FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
         this.rentalEJB.updateRent(rent);
         this.sendMailEJB.sendRentEmail(reservationCode, rent, "Rent Acceptance Confirmation", "confirmed");
     }
